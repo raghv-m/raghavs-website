@@ -234,7 +234,7 @@ const photoGallery: Photo[] = [
     title: "Highway Drift",
     description: "A sleek Porsche captured in motionless power, resting under an urban skyline.",
     tags: ["#photography", "#urban", "#street", "#cars"]
-  },
+  }
 ];
 
 // Extract unique tags for filtering (excluding #photography)
@@ -409,6 +409,11 @@ export function PhotographyGallery() {
                   alt={photo.title}
                   loading="lazy"
                   className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
+                  onError={(e) => {
+                    // Fallback to a different placeholder if the first one fails
+                    const target = e.target as HTMLImageElement;
+                    target.src = `https://via.placeholder.com/400x300/6366f1/ffffff?text=${encodeURIComponent(photo.title)}`;
+                  }}
                 />
                 
                 {/* Hover Overlay */}
@@ -475,10 +480,15 @@ export function PhotographyGallery() {
               className="relative max-w-5xl max-h-full"
               onClick={(e) => e.stopPropagation()}
             >
-              <img
-                src={`/assets/${selectedPhoto.filename}`}
-                alt={selectedPhoto.title}
-                className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
+                              <img
+                  src={`/public/assets/${selectedPhoto.filename}`}
+                  alt={selectedPhoto.title}
+                  className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
+                onError={(e) => {
+                  // Fallback to a different placeholder if the first one fails
+                  const target = e.target as HTMLImageElement;
+                  target.src = `https://via.placeholder.com/800x600/6366f1/ffffff?text=${encodeURIComponent(selectedPhoto.title)}`;
+                }}
               />
               
               {/* Navigation Buttons */}
