@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Send, CheckCircle, AlertCircle } from 'lucide-react'
+import { api } from '@/lib/api'
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -26,17 +27,17 @@ export function ContactForm() {
     setSubmitStatus('idle')
 
     try {
-      // Simulate form submission (replace with actual Firebase/email service)
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      // For now, we'll simulate success
-      // In a real implementation, you would send the data to Firebase or your email service
-      console.log('Form data:', formData)
-      
-      setSubmitStatus('success')
-      setFormData({ name: '', email: '', message: '' })
-    } catch (error) {
-      console.error('Error submitting form:', error)
+      const data = await api.contact(formData);
+
+      if (data.success) {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', message: '' }) // clear form
+      } else {
+        console.error('Error:', data);
+        setSubmitStatus('error')
+      }
+    } catch (err) {
+      console.error('Network error:', err);
       setSubmitStatus('error')
     } finally {
       setIsSubmitting(false)
