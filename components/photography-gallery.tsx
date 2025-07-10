@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight, Camera, Eye } from 'lucide-react'
-import Masonry from 'react-masonry-css'
 
 type Photo = {
   filename: string;
@@ -86,161 +85,138 @@ const photoGallery: Photo[] = [
     tags: ["#photography", "#city", "#night", "#urban"]
   },
   {
-    filename: "464197518_1070894688046899_100191228127106407_n.heic",
+    filename: "370360854_1407304003168976_989827643006898521_n.jpg",
     title: "Golden Hours",
     description: "A glowing sunset bathing the horizon in gentle gold.",
     tags: ["#photography", "#lifestyle", "#sunset", "#goldenhour"]
-  },
-  {
-    filename: "464578980_421442374334868_4541118366697840996_n.heic",
-    title: "Portrait of Solitude",
-    description: "Framed in natural light, a quiet figure embodies peaceful introspection.",
-    tags: ["#photography", "#mood", "#minimal", "#portrait"]
-  },
-  {
-    filename: "464763301_512287548298920_6728097189822872362_n.heic",
-    title: "Nature's Script",
-    description: "Every branch a sentence, every leaf a word — telling a forest's silent story.",
-    tags: ["#photography", "#trees", "#forest", "#nature"]
-  },
-  {
-    filename: "370360854_1407304003168976_989827643006898521_n.jpg",
-    title: "Skyline Pulse",
-    description: "City lights blink in the haze of dusk, where buildings breathe with stories untold.",
-    tags: ["#photography", "#city", "#architecture", "#twilight"]
   },
   {
     filename: "370717900_967044241049091_5715068842131214150_n.jpg",
-    title: "Lens on Culture",
-    description: "A candid capture of street energy and everyday essence.",
-    tags: ["#photography", "#street", "#lifestyle", "#culture"]
+    title: "Portrait of Solitude",
+    description: "Framed in natural light, a quiet figure embodies peaceful introspection.",
+    tags: ["#photography", "#mood", "#minimal", "#portrait"]
   },
   {
     filename: "377957795_17880138881944893_8350813131163337920_n.jpg",
-    title: "Whispers of Light",
-    description: "Soft shadows dance on surfaces touched by natural light through leaves.",
-    tags: ["#photography", "#light", "#nature", "#dreamy"]
+    title: "Nature's Script",
+    description: "Every branch a sentence, every leaf a word — telling a forest's silent story.",
+    tags: ["#photography", "#trees", "#forest", "#nature"]
   },
   {
     filename: "378386506_17880138860944893_4706844385474141978_n.jpg",
-    title: "Highway Drift",
-    description: "A sleek Porsche captured in motionless power, resting under an urban skyline.",
-    tags: ["#photography", "#urban", "#street", "#cars"]
+    title: "Skyline Pulse",
+    description: "City lights blink in the haze of dusk, where buildings breathe with stories untold.",
+    tags: ["#photography", "#city", "#architecture", "#twilight"]
   },
   {
     filename: "378386585_17880138890944893_4606621962207709997_n.jpg",
-    title: "Frozen Still",
-    description: "A tree frozen in winter's embrace, framed by the fading colors of twilight.",
-    tags: ["#photography", "#winter", "#landscape", "#serene"]
+    title: "Lens on Culture",
+    description: "A candid capture of street energy and everyday essence.",
+    tags: ["#photography", "#street", "#lifestyle", "#culture"]
   },
   {
     filename: "338230374_237668175326306_7808895535459229091_n.jpg",
-    title: "Urban Echoes",
-    description: "Muted alleyways and empty paths resonate with a city's silent rhythm.",
-    tags: ["#photography", "#city", "#night", "#urban"]
-  },
-  {
-    filename: "338724253_896534131604832_3198426206516570979_n.jpg",
-    title: "Golden Hours",
-    description: "A glowing sunset bathing the horizon in gentle gold.",
-    tags: ["#photography", "#lifestyle", "#sunset", "#goldenhour"]
-  },
-  {
-    filename: "340687911_913669476516342_2516605092478236339_n.jpg",
-    title: "Portrait of Solitude",
-    description: "Framed in natural light, a quiet figure embodies peaceful introspection.",
-    tags: ["#photography", "#mood", "#minimal", "#portrait"]
-  },
-  {
-    filename: "345021714_187407430865926_6128676970177016447_n.jpg",
-    title: "Nature's Script",
-    description: "Every branch a sentence, every leaf a word — telling a forest's silent story.",
-    tags: ["#photography", "#trees", "#forest", "#nature"]
-  },
-  {
-    filename: "347459148_1199949680709713_5873771730978605721_n.jpg",
-    title: "Skyline Pulse",
-    description: "City lights blink in the haze of dusk, where buildings breathe with stories untold.",
-    tags: ["#photography", "#city", "#architecture", "#twilight"]
-  },
-  {
-    filename: "347641952_183978434232073_1353891339375020397_n.jpg",
-    title: "Lens on Culture",
-    description: "A candid capture of street energy and everyday essence.",
-    tags: ["#photography", "#street", "#lifestyle", "#culture"]
-  },
-  {
-    filename: "369956289_643250864242872_616285542558747926_n.jpg",
     title: "Whispers of Light",
     description: "Soft shadows dance on surfaces touched by natural light through leaves.",
     tags: ["#photography", "#light", "#nature", "#dreamy"]
   },
   {
-    filename: "369994537_836828411171713_1564340975655020105_n.jpg",
+    filename: "338724253_896534131604832_3198426206516570979_n.jpg",
     title: "Highway Drift",
     description: "A sleek Porsche captured in motionless power, resting under an urban skyline.",
     tags: ["#photography", "#urban", "#street", "#cars"]
   },
   {
-    filename: "370003826_321926486944342_6341356255380684349_n.jpg",
+    filename: "340687911_913669476516342_2516605092478236339_n.jpg",
     title: "Frozen Still",
     description: "A tree frozen in winter's embrace, framed by the fading colors of twilight.",
     tags: ["#photography", "#winter", "#landscape", "#serene"]
   },
   {
-    filename: "370569547_872363814484127_3710562338195829928_n.jpg",
+    filename: "345021714_187407430865926_6128676970177016447_n.jpg",
     title: "Urban Echoes",
     description: "Muted alleyways and empty paths resonate with a city's silent rhythm.",
     tags: ["#photography", "#city", "#night", "#urban"]
   },
   {
-    filename: "370615765_804750717859193_9213318328654467694_n.jpg",
+    filename: "347459148_1199949680709713_5873771730978605721_n.jpg",
     title: "Golden Hours",
     description: "A glowing sunset bathing the horizon in gentle gold.",
     tags: ["#photography", "#lifestyle", "#sunset", "#goldenhour"]
   },
   {
-    filename: "376625663_325415719848426_157055517698654095_n.jpg",
+    filename: "347641952_183978434232073_1353891339375020397_n.jpg",
     title: "Portrait of Solitude",
     description: "Framed in natural light, a quiet figure embodies peaceful introspection.",
     tags: ["#photography", "#mood", "#minimal", "#portrait"]
   },
   {
-    filename: "377769853_1780716382369939_3007038905095385746_n.jpg",
+    filename: "369956289_643250864242872_616285542558747926_n.jpg",
     title: "Nature's Script",
     description: "Every branch a sentence, every leaf a word — telling a forest's silent story.",
     tags: ["#photography", "#trees", "#forest", "#nature"]
   },
   {
-    filename: "401145473_17888593919944893_3391469059670294431_n.jpg",
+    filename: "369994537_836828411171713_1564340975655020105_n.jpg",
     title: "Skyline Pulse",
     description: "City lights blink in the haze of dusk, where buildings breathe with stories untold.",
     tags: ["#photography", "#city", "#architecture", "#twilight"]
   },
   {
-    filename: "401271979_17888593931944893_3191792138330606467_n.jpg",
+    filename: "370003826_321926486944342_6341356255380684349_n.jpg",
     title: "Lens on Culture",
     description: "A candid capture of street energy and everyday essence.",
     tags: ["#photography", "#street", "#lifestyle", "#culture"]
   },
   {
-    filename: "401291406_17888593910944893_3051471909535346596_n.jpg",
+    filename: "370569547_872363814484127_3710562338195829928_n.jpg",
     title: "Whispers of Light",
     description: "Soft shadows dance on surfaces touched by natural light through leaves.",
     tags: ["#photography", "#light", "#nature", "#dreamy"]
   },
   {
-    filename: "468551347_17936657042944893_4145983589040278334_n.jpg",
+    filename: "370615765_804750717859193_9213318328654467694_n.jpg",
     title: "Highway Drift",
     description: "A sleek Porsche captured in motionless power, resting under an urban skyline.",
     tags: ["#photography", "#urban", "#street", "#cars"]
+  },
+  {
+    filename: "376625663_325415719848426_157055517698654095_n.jpg",
+    title: "Frozen Still",
+    description: "A tree frozen in winter's embrace, framed by the fading colors of twilight.",
+    tags: ["#photography", "#winter", "#landscape", "#serene"]
+  },
+  {
+    filename: "377769853_1780716382369939_3007038905095385746_n.jpg",
+    title: "Urban Echoes",
+    description: "Muted alleyways and empty paths resonate with a city's silent rhythm.",
+    tags: ["#photography", "#city", "#night", "#urban"]
+  },
+  {
+    filename: "401145473_17888593919944893_3391469059670294431_n.jpg",
+    title: "Golden Hours",
+    description: "A glowing sunset bathing the horizon in gentle gold.",
+    tags: ["#photography", "#lifestyle", "#sunset", "#goldenhour"]
+  },
+  {
+    filename: "401271979_17888593931944893_3191792138330606467_n.jpg",
+    title: "Portrait of Solitude",
+    description: "Framed in natural light, a quiet figure embodies peaceful introspection.",
+    tags: ["#photography", "#mood", "#minimal", "#portrait"]
+  },
+  {
+    filename: "401291406_17888593910944893_3051471909535346596_n.jpg",
+    title: "Nature's Script",
+    description: "Every branch a sentence, every leaf a word — telling a forest's silent story.",
+    tags: ["#photography", "#trees", "#forest", "#nature"]
+  },
+  {
+    filename: "468551347_17936657042944893_4145983589040278334_n.jpg",
+    title: "Skyline Pulse",
+    description: "City lights blink in the haze of dusk, where buildings breathe with stories untold.",
+    tags: ["#photography", "#city", "#architecture", "#twilight"]
   }
 ];
-
-// Extract unique tags for filtering (excluding #photography)
-const allTags = Array.from(new Set(
-  photoGallery.flatMap(photo => photo.tags.filter(tag => tag !== "#photography"))
-)).sort();
 
 const categories = [
   { id: 'all', name: 'All', icon: '📸' },
@@ -268,19 +244,10 @@ const categories = [
   { id: 'twilight', name: 'Twilight', icon: '🌆' }
 ];
 
-// Masonry breakpoints for responsive design
-const breakpointColumns = {
-  default: 4,
-  1100: 3,
-  700: 2,
-  500: 1
-}
-
 export function PhotographyGallery() {
   const [selectedFilter, setSelectedFilter] = useState('all')
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0)
-  const observerRef = useRef<IntersectionObserver | null>(null)
 
   // Filter photos based on selected tag
   const filteredPhotos = selectedFilter === 'all' 
@@ -289,35 +256,10 @@ export function PhotographyGallery() {
         photo.tags.some(tag => tag.toLowerCase().includes(selectedFilter.toLowerCase()))
       )
 
-  // Intersection Observer for scroll animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in')
-          }
-        })
-      },
-      { threshold: 0.1, rootMargin: '50px' }
-    )
-    
-    observerRef.current = observer
-    
-    const elements = document.querySelectorAll('.photo-item')
-    elements.forEach((el) => observer.observe(el))
-    
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect()
-      }
-    }
-  }, [filteredPhotos])
-
   const openLightbox = (photo: Photo, index: number) => {
-    setSelectedPhoto(photo)
-    setCurrentPhotoIndex(index)
-  }
+    setSelectedPhoto(photo);
+    setCurrentPhotoIndex(index);
+  };
 
   const closeLightbox = () => {
     setSelectedPhoto(null)
@@ -359,7 +301,7 @@ export function PhotographyGallery() {
 
   return (
     <div className="space-y-12">
-      {/* Enhanced Category Filters */}
+      {/* Category Filters */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -383,23 +325,23 @@ export function PhotographyGallery() {
         ))}
       </motion.div>
 
-      {/* Masonry Photo Grid */}
-      <Masonry
-        breakpointCols={breakpointColumns}
-        className="flex -ml-6 w-auto"
-        columnClassName="pl-6 bg-clip-padding"
-      >
+      {/* Debug Info */}
+      <div className="text-center text-sm text-gray-500">
+        Showing {filteredPhotos.length} photos
+      </div>
+
+      {/* Simple Grid Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {filteredPhotos.map((photo, index) => (
           <motion.div
             key={`${photo.filename}-${index}`}
-            layout
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="photo-item mb-6 group cursor-pointer"
+            className="group cursor-pointer"
             onClick={() => openLightbox(photo, index)}
           >
-            {/* Glassmorphism Card */}
+            {/* Card */}
             <div className="relative overflow-hidden rounded-2xl bg-white/8 backdrop-blur-xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 group-hover:scale-[1.02] group-hover:-translate-y-1">
               
               {/* Image Container */}
@@ -407,12 +349,14 @@ export function PhotographyGallery() {
                 <img
                   src={`/assets/${photo.filename}`}
                   alt={photo.title}
-                  loading="lazy"
-                  className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
                   onError={(e) => {
-                    // Fallback to a different placeholder if the first one fails
+                    console.error('Image failed to load:', photo.filename);
                     const target = e.target as HTMLImageElement;
-                    target.src = `https://via.placeholder.com/400x300/6366f1/ffffff?text=${encodeURIComponent(photo.title)}`;
+                    target.src = `https://placehold.co/800x600/6366f1/ffffff?text=${encodeURIComponent(photo.title)}`;
+                  }}
+                  onLoad={() => {
+                    console.log('Image loaded successfully:', photo.filename);
                   }}
                 />
                 
@@ -461,9 +405,9 @@ export function PhotographyGallery() {
             </div>
           </motion.div>
         ))}
-      </Masonry>
+      </div>
 
-      {/* Enhanced Lightbox */}
+      {/* Lightbox */}
       <AnimatePresence>
         {selectedPhoto && (
           <motion.div
@@ -473,68 +417,35 @@ export function PhotographyGallery() {
             className="fixed inset-0 bg-black/95 backdrop-blur-sm z-50 flex items-center justify-center p-4"
             onClick={closeLightbox}
           >
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
-              className="relative max-w-5xl max-h-full"
+              className="relative w-[95vw] max-w-3xl max-h-[90vh] flex flex-col items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
-                              <img
-                  src={`/public/assets/${selectedPhoto.filename}`}
-                  alt={selectedPhoto.title}
-                  className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
+              {/* Image */}
+              <img
+                src={`/assets/${selectedPhoto.filename}`}
+                alt={selectedPhoto.title}
+                className="max-w-full max-h-[60vh] object-contain rounded-2xl shadow-2xl mx-auto"
                 onError={(e) => {
-                  // Fallback to a different placeholder if the first one fails
+                  console.error('Lightbox image failed to load:', selectedPhoto.filename);
                   const target = e.target as HTMLImageElement;
-                  target.src = `https://via.placeholder.com/800x600/6366f1/ffffff?text=${encodeURIComponent(selectedPhoto.title)}`;
+                  target.src = `https://placehold.co/800x600/6366f1/ffffff?text=${encodeURIComponent(selectedPhoto.title)}`;
                 }}
               />
-              
-              {/* Navigation Buttons */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  prevPhoto()
-                }}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 backdrop-blur-sm text-white p-3 rounded-full hover:bg-black/70 transition-all duration-300 hover:scale-110"
-                aria-label="Previous photo"
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-              
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  nextPhoto()
-                }}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 backdrop-blur-sm text-white p-3 rounded-full hover:bg-black/70 transition-all duration-300 hover:scale-110"
-                aria-label="Next photo"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
-              
-              {/* Close Button */}
-              <button
-                onClick={closeLightbox}
-                className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm text-white p-3 rounded-full hover:bg-black/70 transition-all duration-300 hover:scale-110"
-                aria-label="Close lightbox"
-              >
-                <X className="w-6 h-6" />
-              </button>
-              
-              {/* Enhanced Photo Info */}
-              <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-sm text-white p-6 rounded-2xl border border-white/20">
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="font-semibold text-xl mb-2">{selectedPhoto.title}</h3>
+
+              {/* Info Box */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/60 backdrop-blur-sm text-white p-6 rounded-2xl border border-white/20 w-[90vw] max-w-xl min-w-[300px] text-center">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3 gap-2">
+                  <h3 className="font-semibold text-xl mb-2 md:mb-0">{selectedPhoto.title}</h3>
                   <span className="text-sm text-gray-300 bg-white/10 px-3 py-1 rounded-full">
                     {currentPhotoIndex + 1} of {filteredPhotos.length}
                   </span>
                 </div>
                 <p className="text-gray-200 leading-relaxed mb-3">{selectedPhoto.description}</p>
-                
-                {/* Tags in Lightbox */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 justify-center">
                   {selectedPhoto.tags.filter(tag => tag !== "#photography").map((tag, tagIndex) => (
                     <span
                       key={tagIndex}
@@ -551,10 +462,40 @@ export function PhotographyGallery() {
                   ))}
                 </div>
               </div>
+
+              {/* Navigation Buttons */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  prevPhoto()
+                }}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 backdrop-blur-sm text-white p-3 rounded-full hover:bg-black/70 transition-all duration-300 hover:scale-110"
+                aria-label="Previous photo"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  nextPhoto()
+                }}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 backdrop-blur-sm text-white p-3 rounded-full hover:bg-black/70 transition-all duration-300 hover:scale-110"
+                aria-label="Next photo"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+              {/* Close Button */}
+              <button
+                onClick={closeLightbox}
+                className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm text-white p-3 rounded-full hover:bg-black/70 transition-all duration-300 hover:scale-110"
+                aria-label="Close lightbox"
+              >
+                <X className="w-6 h-6" />
+              </button>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
   )
-} 
+}
