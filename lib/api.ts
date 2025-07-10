@@ -1,7 +1,13 @@
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 export const api = {
-  contact: async (data: { name: string; email: string; message: string; to?: string }) => {
+
+  contact: async (data: {
+    name: string;
+    email: string;
+    message: string;
+    to?: string;
+  }) => {
     const response = await fetch(`${API_BASE}/api/contact`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -10,6 +16,7 @@ export const api = {
 
     return response.json();
   },
+
 
   photography: async (tag?: string) => {
     const url = tag ? `${API_BASE}/api/photography?tag=${tag}` : `${API_BASE}/api/photography`;

@@ -2,8 +2,16 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const router = express.Router();
 
-// Create mail transporter
+// Create email transporter
 const createTransporter = () => {
+  // Debug: Log SMTP settings (without password for security)
+  console.log('🔧 SMTP Configuration:');
+  console.log('  Host:', process.env.SMTP_HOST);
+  console.log('  Port:', process.env.SMTP_PORT);
+  console.log('  User:', process.env.SMTP_USER);
+  console.log('  From Email:', process.env.FROM_EMAIL);
+  console.log('  Password length:', process.env.SMTP_PASS ? process.env.SMTP_PASS.length : 'undefined');
+
   return nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: Number(process.env.SMTP_PORT),
@@ -15,40 +23,26 @@ const createTransporter = () => {
   });
 };
 
-// Email to portfolio owner
+// Send email to site owner
 const sendEmailToOwner = async (contactData) => {
   const transporter = createTransporter();
 
   const mailOptions = {
-    from: process.env.FROM_EMAIL || process.env.SMTP_USER,
-    to: contactData.to || process.env.DESTINATION_EMAIL || 'raaghvv0508@gmail.com',
+    from: process.env.FROM_EMAIL,
+    to: contactData.to || process.env.FROM_EMAIL,
     subject: `Portfolio Contact: ${contactData.subject}`,
-    text: `
-New contact form submission:
-
-Name: ${contactData.name}
-Email: ${contactData.email}
-Subject: ${contactData.subject}
-Message: ${contactData.message}
-
-Timestamp: ${contactData.timestamp}
-IP Address: ${contactData.ip}
-User Agent: ${contactData.userAgent}
-    `,
     html: `
-      <div style="font-family: Arial, sans-serif;">
-        <h2>New Contact Form Submission</h2>
+      <div>
+        <h2>New Message</h2>
         <p><strong>Name:</strong> ${contactData.name}</p>
-        <p><strong>Email:</strong> <a href="mailto:${contactData.email}">${contactData.email}</a></p>
-        <p><strong>Subject:</strong> ${contactData.subject}</p>
+        <p><strong>Email:</strong> ${contactData.email}</p>
         <p><strong>Message:</strong></p>
-        <div style="background:#f9f9f9;padding:10px;border-radius:5px;">${contactData.message.replace(/\n/g, '<br>')}</div>
+        <p>${contactData.message.replace(/\n/g, '<br>')}</p>
         <hr>
-        <p><strong>Timestamp:</strong> ${contactData.timestamp}</p>
-        <p><strong>IP:</strong> ${contactData.ip}</p>
-        <p><strong>User Agent:</strong> ${contactData.userAgent}</p>
+        <small><strong>IP:</strong> ${contactData.ip}</small><br/>
+        <small><strong>User Agent:</strong> ${contactData.userAgent}</small>
       </div>
-    `
+    `,
   };
 
   return await transporter.sendMail(mailOptions);
@@ -59,16 +53,13 @@ const sendAutoReply = async (contactData) => {
   const transporter = createTransporter();
 
   const mailOptions = {
-    from: process.env.FROM_EMAIL || process.env.SMTP_USER,
+    from: process.env.FROM_EMAIL,
     to: contactData.email,
     subject: "Thanks for contacting me!",
-    text: `Hi ${contactData.name},\n\nThanks for your message! I'll get back to you soon.\n\n— Raghav`,
     html: `
-      <div style="font-family: Arial, sans-serif;">
-        <p>Hi ${contactData.name},</p>
-        <p>Thank you for reaching out via my portfolio website. I appreciate your message and will respond shortly.</p>
-        <p>— Raghav Mahajan</p>
-      </div>
+      <p>Hi ${contactData.name},</p>
+      <p>Thanks for reaching out! I’ll get back to you soon.</p>
+      <p>— Raghav</p>
     `
   };
 
@@ -84,74 +75,39 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email) || (to && !emailRegex.test(to))) {
-      return res.status(400).json({ error: 'Invalid email format' });
-    }
-
     const contactData = {
       id: Date.now(),
       name: name.trim(),
-      email: email.trim().toLowerCase(),
-      to: to?.trim().toLowerCase(),
+      email: email.trim(),
       subject: subject?.trim() || 'Portfolio Contact',
       message: message.trim(),
+      to: to?.trim(),
       timestamp: new Date().toISOString(),
       ip: req.ip,
       userAgent: req.get('User-Agent')
     };
 
-    console.log('📧 New contact submission:', {
-      id: contactData.id,
-      name: contactData.name,
-      email: contactData.email,
-      to: contactData.to,
-      subject: contactData.subject,
-      timestamp: contactData.timestamp
-    });
+    await sendEmailToOwner(contactData);
+    await sendAutoReply(contactData);
 
-    let ownerResult = null;
-    let userResult = null;
-
-    try {
-      ownerResult = await sendEmailToOwner(contactData);
-      userResult = await sendAutoReply(contactData);
-      console.log('✅ Emails sent successfully');
-    } catch (err) {
-      console.error('❌ Email sending error:', err.message);
+    res.status(201).json({ success: true, message: 'Message sent!' });
+  } catch (error) {
+    console.error('❌ Email error details:');
+    console.error('  Message:', error.message);
+    console.error('  Code:', error.code);
+    console.error('  Command:', error.command);
+    
+    // Provide more specific error messages
+    let errorMessage = 'Email failed to send';
+    if (error.code === 'EAUTH') {
+      errorMessage = 'Authentication failed. Please check your email and app password.';
+    } else if (error.code === 'ECONNECTION') {
+      errorMessage = 'Connection failed. Please check your internet connection.';
+    } else if (error.code === 'ETIMEDOUT') {
+      errorMessage = 'Connection timed out. Please try again.';
     }
-
-    res.status(201).json({
-      success: true,
-      message: "Thank you for your message! I’ll get back to you soon.",
-      data: {
-        id: contactData.id,
-        timestamp: contactData.timestamp,
-        emailSentTo: contactData.to || process.env.DESTINATION_EMAIL,
-        emailSent: !!ownerResult?.messageId
-      }
-    });
-
-  } catch (err) {
-    console.error('❌ Contact form error:', err.message);
-    res.status(500).json({ error: 'Failed to submit contact form' });
-  }
-});
-
-// GET /api/contact/stats (mock)
-router.get('/stats', async (req, res) => {
-  try {
-    const stats = {
-      totalSubmissions: 0,
-      thisMonth: 0,
-      thisWeek: 0,
-      today: 0
-    };
-
-    res.json({ success: true, data: stats });
-  } catch (err) {
-    console.error('❌ Stats error:', err.message);
-    res.status(500).json({ error: 'Failed to fetch contact statistics' });
+    
+    res.status(500).json({ error: errorMessage });
   }
 });
 
