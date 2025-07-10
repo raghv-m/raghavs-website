@@ -2,12 +2,12 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const router = express.Router();
 
-// Create transporter for sending emails
+// Create mail transporter
 const createTransporter = () => {
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: Number(process.env.SMTP_PORT),
-    secure: false, // true for 465, false for other ports
+    secure: false,
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
@@ -15,16 +15,16 @@ const createTransporter = () => {
   });
 };
 
-// Send email function with proper error handling
-const sendEmail = async (contactData) => {
+// Email to portfolio owner
+const sendEmailToOwner = async (contactData) => {
   const transporter = createTransporter();
-  
+
   const mailOptions = {
     from: process.env.FROM_EMAIL || process.env.SMTP_USER,
-    to: process.env.DESTINATION_EMAIL || 'raaghvv0508@gmail.com',
+    to: contactData.to || process.env.DESTINATION_EMAIL || 'raaghvv0508@gmail.com',
     subject: `Portfolio Contact: ${contactData.subject}`,
     text: `
-New contact form submission from your portfolio website:
+New contact form submission:
 
 Name: ${contactData.name}
 Email: ${contactData.email}
@@ -36,62 +36,64 @@ IP Address: ${contactData.ip}
 User Agent: ${contactData.userAgent}
     `,
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #333;">New Contact Form Submission</h2>
-        <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <p><strong>Name:</strong> ${contactData.name}</p>
-          <p><strong>Email:</strong> <a href="mailto:${contactData.email}">${contactData.email}</a></p>
-          <p><strong>Subject:</strong> ${contactData.subject}</p>
-          <p><strong>Message:</strong></p>
-          <div style="background-color: white; padding: 15px; border-radius: 5px; margin: 10px 0;">
-            ${contactData.message.replace(/\n/g, '<br>')}
-          </div>
-        </div>
-        <div style="font-size: 12px; color: #666; border-top: 1px solid #ddd; padding-top: 10px;">
-          <p><strong>Timestamp:</strong> ${contactData.timestamp}</p>
-          <p><strong>IP Address:</strong> ${contactData.ip}</p>
-          <p><strong>User Agent:</strong> ${contactData.userAgent}</p>
-        </div>
+      <div style="font-family: Arial, sans-serif;">
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${contactData.name}</p>
+        <p><strong>Email:</strong> <a href="mailto:${contactData.email}">${contactData.email}</a></p>
+        <p><strong>Subject:</strong> ${contactData.subject}</p>
+        <p><strong>Message:</strong></p>
+        <div style="background:#f9f9f9;padding:10px;border-radius:5px;">${contactData.message.replace(/\n/g, '<br>')}</div>
+        <hr>
+        <p><strong>Timestamp:</strong> ${contactData.timestamp}</p>
+        <p><strong>IP:</strong> ${contactData.ip}</p>
+        <p><strong>User Agent:</strong> ${contactData.userAgent}</p>
       </div>
     `
   };
 
-  try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log('📧 Email sent successfully:', info.messageId);
-    return { success: true, messageId: info.messageId };
-  } catch (error) {
-    console.error('📧 Email sending failed:', error);
-    throw new Error(`Email sending failed: ${error.message}`);
-  }
+  return await transporter.sendMail(mailOptions);
 };
 
-// Contact form submission
+// Auto-reply to sender
+const sendAutoReply = async (contactData) => {
+  const transporter = createTransporter();
+
+  const mailOptions = {
+    from: process.env.FROM_EMAIL || process.env.SMTP_USER,
+    to: contactData.email,
+    subject: "Thanks for contacting me!",
+    text: `Hi ${contactData.name},\n\nThanks for your message! I'll get back to you soon.\n\n— Raghav`,
+    html: `
+      <div style="font-family: Arial, sans-serif;">
+        <p>Hi ${contactData.name},</p>
+        <p>Thank you for reaching out via my portfolio website. I appreciate your message and will respond shortly.</p>
+        <p>— Raghav Mahajan</p>
+      </div>
+    `
+  };
+
+  return await transporter.sendMail(mailOptions);
+};
+
+// POST /api/contact
 router.post('/', async (req, res) => {
   try {
-    const { name, email, subject, message } = req.body;
+    const { name, email, subject, message, to } = req.body;
 
-    // Validation
     if (!name || !email || !message) {
-      return res.status(400).json({
-        error: 'Missing required fields',
-        required: ['name', 'email', 'message']
-      });
+      return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({
-        error: 'Invalid email format'
-      });
+    if (!emailRegex.test(email) || (to && !emailRegex.test(to))) {
+      return res.status(400).json({ error: 'Invalid email format' });
     }
 
-    // Prepare contact data
     const contactData = {
       id: Date.now(),
       name: name.trim(),
-      email: email.toLowerCase().trim(),
+      email: email.trim().toLowerCase(),
+      to: to?.trim().toLowerCase(),
       subject: subject?.trim() || 'Portfolio Contact',
       message: message.trim(),
       timestamp: new Date().toISOString(),
@@ -99,52 +101,46 @@ router.post('/', async (req, res) => {
       userAgent: req.get('User-Agent')
     };
 
-    // Log the contact submission
     console.log('📧 New contact submission:', {
       id: contactData.id,
       name: contactData.name,
       email: contactData.email,
+      to: contactData.to,
       subject: contactData.subject,
       timestamp: contactData.timestamp
     });
 
-    // Send email notification
-    let emailResult = null;
-    try {
-      emailResult = await sendEmail(contactData);
-      console.log('✅ Email notification sent successfully');
-    } catch (emailError) {
-      console.error('❌ Email notification failed:', emailError.message);
-      // Don't fail the entire request if email fails
-      // In production, you might want to queue failed emails for retry
-    }
+    let ownerResult = null;
+    let userResult = null;
 
-    // Simulate processing delay
-    await new Promise(resolve => setTimeout(resolve, 500));
+    try {
+      ownerResult = await sendEmailToOwner(contactData);
+      userResult = await sendAutoReply(contactData);
+      console.log('✅ Emails sent successfully');
+    } catch (err) {
+      console.error('❌ Email sending error:', err.message);
+    }
 
     res.status(201).json({
       success: true,
-      message: 'Thank you for your message! I\'ll get back to you soon.',
+      message: "Thank you for your message! I’ll get back to you soon.",
       data: {
         id: contactData.id,
         timestamp: contactData.timestamp,
-        emailSent: emailResult?.success || false
+        emailSentTo: contactData.to || process.env.DESTINATION_EMAIL,
+        emailSent: !!ownerResult?.messageId
       }
     });
 
-  } catch (error) {
-    console.error('Contact submission error:', error);
-    res.status(500).json({
-      error: 'Failed to submit contact form',
-      message: 'Please try again later'
-    });
+  } catch (err) {
+    console.error('❌ Contact form error:', err.message);
+    res.status(500).json({ error: 'Failed to submit contact form' });
   }
 });
 
-// Get contact statistics (for admin dashboard)
+// GET /api/contact/stats (mock)
 router.get('/stats', async (req, res) => {
   try {
-    // In production, this would fetch from database
     const stats = {
       totalSubmissions: 0,
       thisMonth: 0,
@@ -152,16 +148,11 @@ router.get('/stats', async (req, res) => {
       today: 0
     };
 
-    res.json({
-      success: true,
-      data: stats
-    });
-  } catch (error) {
-    console.error('Stats error:', error);
-    res.status(500).json({
-      error: 'Failed to fetch contact statistics'
-    });
+    res.json({ success: true, data: stats });
+  } catch (err) {
+    console.error('❌ Stats error:', err.message);
+    res.status(500).json({ error: 'Failed to fetch contact statistics' });
   }
 });
 
-module.exports = router; 
+module.exports = router;
