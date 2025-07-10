@@ -198,27 +198,27 @@ jspm_packages/
 # OS
 .DS_Store
 .DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
 
-# Backend specific
-backend/.env
-backend/node_modules/
-backend/logs/
-backend/uploads/
 
-# Database
-*.sqlite
-*.db
 
-# SSL certificates
-*.pem
+# API Keys and Secrets
+.env*
 *.key
-*.crt
+*.pem
+*.p12
+*.pfx
 
-# Backup files
-*.bak
-*.backup 
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/ 
