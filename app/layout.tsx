@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
 import { BackToTop } from '@/components/back-to-top'
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_CA',
-    url: 'https://raghavmahajan.com',
+    url: 'https://raghv.dev',
     title: 'Raghav Mahajan - Full Stack Developer',
     description: 'Full Stack Developer specializing in React, Node.js, Flutter, and modern web technologies.',
     siteName: 'Raghav Mahajan Portfolio',
