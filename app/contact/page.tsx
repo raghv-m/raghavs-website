@@ -1,6 +1,6 @@
 import { ContactForm } from '@/components/contact-form'
 import { ContactInfo } from '@/components/contact-info'
-
+import { Analytics } from "@vercel/analytics/next"
 export default function ContactPage() {
   return (
     <div className="min-h-screen pt-16">
