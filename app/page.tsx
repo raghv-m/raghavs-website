@@ -3,6 +3,7 @@ import { AboutPreview } from '@/components/about-preview'
 import { ProjectsPreview } from '@/components/projects-preview'
 import { SkillsSection } from '@/components/skills-section'
 import { ContactCTA } from '@/components/contact-cta'
+import { Analytics } from "@vercel/analytics/next"
 
 export default function Home() {
   return (
