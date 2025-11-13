@@ -2,6 +2,7 @@ import { HeroSection } from '@/components/hero-section'
 import { AboutPreview } from '@/components/about-preview'
 import { ServicesSection } from '@/components/services-section'
 import { ProjectsPreview } from '@/components/projects-preview'
+import { TestimonialsSection } from '@/components/testimonials-section'
 import { SkillsSection } from '@/components/skills-section'
 import { ContactCTA } from '@/components/contact-cta'
 import type { Metadata } from 'next'
@@ -27,6 +28,7 @@ export default function Home() {
       <AboutPreview />
       <ServicesSection />
       <ProjectsPreview />
+      <TestimonialsSection />
       <SkillsSection />
       <ContactCTA />
     </div>

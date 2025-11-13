@@ -79,10 +79,20 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-700 dark:text-gray-300 mb-8"
+          className="text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-700 dark:text-gray-300 mb-4"
         >
           Full Stack Developer
         </motion.h2>
+
+        {/* Catchy Tagline */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="text-xl md:text-2xl font-medium text-primary-600 dark:text-primary-400 mb-8"
+        >
+          Turning Ideas into Scalable Digital Solutions
+        </motion.p>
 
         {/* Description */}
         <motion.p
@@ -102,21 +112,48 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
         >
-          <Link href="/projects" className="btn-primary">
-            See My Recent Work
-          </Link>
-          <Link href="/contact" className="btn-outline">
-            <Mail className="w-5 h-5 mr-2" />
-            Hire Me
-          </Link>
-          <a
-            href="/cvRM.pdf"
-            download="Raghav_Mahajan_Resume.pdf"
-            className="btn-secondary"
+          <motion.div
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
-            <Download className="w-5 h-5 mr-2" />
-            Download Resume
-          </a>
+            <Link href="/projects" className="btn-primary inline-flex items-center">
+              See My Recent Work
+              <motion.span
+                className="ml-2"
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                →
+              </motion.span>
+            </Link>
+          </motion.div>
+
+          <motion.div
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          >
+            <Link href="/contact" className="btn-outline inline-flex items-center">
+              <Mail className="w-5 h-5 mr-2" />
+              Hire Me
+            </Link>
+          </motion.div>
+
+          <motion.div
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          >
+            <a
+              href="/cvRM.pdf"
+              download="Raghav_Mahajan_Resume.pdf"
+              className="btn-secondary inline-flex items-center"
+            >
+              <Download className="w-5 h-5 mr-2" />
+              Download Resume
+            </a>
+          </motion.div>
         </motion.div>
 
         {/* Social Links */}

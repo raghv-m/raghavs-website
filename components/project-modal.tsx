@@ -12,6 +12,9 @@ interface ProjectModalProps {
     live?: string
     details: {
       overview: string
+      challenge?: string
+      solution?: string
+      impact?: string
       features: string[]
       challenges: string[]
       solutions: string[]
@@ -57,15 +60,44 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
           {/* Content */}
           <div className="p-6 space-y-8">
-            {/* Overview */}
-            <div>
-              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
-                Project Overview
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                {project.details.overview}
-              </p>
-            </div>
+            {/* Challenge → Solution → Impact */}
+            {project.details.challenge && (
+              <div className="space-y-6">
+                {/* Challenge */}
+                <div className="p-6 rounded-xl bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800">
+                  <h3 className="text-lg font-bold mb-3 text-red-700 dark:text-red-400 flex items-center gap-2">
+                    <span className="text-2xl">🎯</span> The Challenge
+                  </h3>
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    {project.details.challenge}
+                  </p>
+                </div>
+
+                {/* Solution */}
+                {project.details.solution && (
+                  <div className="p-6 rounded-xl bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800">
+                    <h3 className="text-lg font-bold mb-3 text-blue-700 dark:text-blue-400 flex items-center gap-2">
+                      <span className="text-2xl">💡</span> The Solution
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                      {project.details.solution}
+                    </p>
+                  </div>
+                )}
+
+                {/* Impact */}
+                {project.details.impact && (
+                  <div className="p-6 rounded-xl bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800">
+                    <h3 className="text-lg font-bold mb-3 text-green-700 dark:text-green-400 flex items-center gap-2">
+                      <span className="text-2xl">📊</span> The Impact
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                      {project.details.impact}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Technologies */}
             <div>

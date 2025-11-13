@@ -1,5 +1,6 @@
 import { AboutHero } from '@/components/about-hero'
 import { AchievementsSection } from '@/components/achievements-section'
+import { FunFacts } from '@/components/fun-facts'
 import { Timeline } from '@/components/timeline'
 import { TechStack } from '@/components/tech-stack'
 import { SoftSkills } from '@/components/soft-skills'
@@ -24,6 +25,7 @@ export default function AboutPage() {
     <div className="min-h-screen pt-16">
       <AboutHero />
       <AchievementsSection />
+      <FunFacts />
       <Timeline />
       <TechStack />
       <SoftSkills />

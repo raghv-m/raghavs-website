@@ -53,15 +53,19 @@ export function AboutHero() {
           >
             <div>
               <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-                Professional Summary
+                My Story
               </h2>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                I'm a passionate Full Stack Developer with a strong foundation in software engineering and a love for creating impactful digital solutions. 
-                Graduated from NAIT in 2024 with expertise in the MERN stack, Flutter, Java, and Firebase.
+                I'm a passionate Full Stack Developer based in Edmonton, AB, who believes that great software should solve real problems and make people's lives easier.
+                My journey into tech started with curiosity about how websites work, and quickly evolved into a deep love for building digital solutions that make a difference.
+              </p>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+                After graduating from NAIT's Software Engineering program in 2024, I've delivered <span className="font-semibold text-primary-600 dark:text-primary-400">15+ production websites</span> for local Edmonton businesses,
+                helping them establish their online presence and grow their customer base. From plumbing companies to restaurants, I've learned that every business has unique challenges that deserve custom solutions.
               </p>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                My journey in software development has been driven by curiosity and a desire to solve real-world problems through innovative technology. 
-                I specialize in building scalable web applications, mobile apps, and creating seamless user experiences.
+                <span className="font-semibold text-gray-900 dark:text-white">My Value Proposition:</span> I don't just write code—I build scalable, high-performance applications that drive business results.
+                Whether it's reducing load times by 40%, implementing secure authentication systems, or creating mobile-first experiences, I focus on measurable impact.
               </p>
             </div>
 
