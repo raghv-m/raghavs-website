@@ -95,9 +95,9 @@ export function AboutHero() {
                 <Download className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                 <div>
                   <p className="text-sm text-gray-500 dark:text-gray-400">Resume</p>
-                  <a 
-                    href="/raghavCV.pdf" 
-                    download="raghavCV.pdf"
+                  <a
+                    href="/cvRM.pdf"
+                    download="Raghav_Mahajan_Resume.pdf"
                     className="font-semibold text-primary-600 dark:text-primary-400 hover:underline"
                   >
                     Download PDF

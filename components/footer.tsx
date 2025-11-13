@@ -16,7 +16,7 @@ const socialLinks = [
   },
   {
     name: 'Instagram',
-    href: 'https://instagram.com/ragh.v_',
+    href: 'https://www.instagram.com/ragh.v_/',
     icon: Instagram,
   },
   {

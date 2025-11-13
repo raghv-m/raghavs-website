@@ -6,8 +6,8 @@ import { ArrowDown, Download, Mail, Github, Linkedin, Instagram } from 'lucide-r
 
 const socialLinks = [
   { name: 'GitHub', href: 'https://github.com/raghv-m', icon: Github },
-  { name: 'LinkedIn', href: 'https://linkedin.com/in/raghav-mahajan-17611b24b', icon: Linkedin },
-  { name: 'Instagram', href: 'https://instagram.com/ragh.v_', icon: Instagram },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/raghav-mahajan-17611b24b', icon: Linkedin },
+  { name: 'Instagram', href: 'https://www.instagram.com/ragh.v_/', icon: Instagram },
 ]
 
 export function HeroSection() {
@@ -93,8 +93,8 @@ export function HeroSection() {
             <Mail className="w-5 h-5 mr-2" />
             Get In Touch
           </Link>
-          <a 
-            href="/raghavCV.pdf" 
+          <a
+            href="/cvRM.pdf"
             download="Raghav_Mahajan_Resume.pdf"
             className="btn-secondary"
           >

@@ -57,7 +57,8 @@ export default function RootLayout({
             <BackToTop />
           </div>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
-} 
+}

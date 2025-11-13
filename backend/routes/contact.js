@@ -175,8 +175,8 @@ const sendEmailToOwner = async (contactData) => {
             <p>Full Stack Developer</p>
             <div class="social-links">
               <a href="https://github.com/raghv-m">GitHub</a> •
-              <a href="https://linkedin.com/in/raghav-mahajan-17611b24b">LinkedIn</a> •
-              <a href="https://instagram.com/ragh.v_">Instagram</a>
+              <a href="https://www.linkedin.com/in/raghav-mahajan-17611b24b">LinkedIn</a> •
+              <a href="https://www.instagram.com/ragh.v_/">Instagram</a>
             </div>
             <p style="margin-top: 16px; font-size: 12px; color: #9ca3af;">
               © ${new Date().getFullYear()} Raghav Mahajan. Based in Edmonton, AB, Canada
@@ -347,8 +347,8 @@ const sendAutoReply = async (contactData) => {
             <h3>Let's Connect</h3>
             <div class="social-links">
               <a href="https://github.com/raghv-m">GitHub</a>
-              <a href="https://linkedin.com/in/raghav-mahajan-17611b24b">LinkedIn</a>
-              <a href="https://instagram.com/ragh.v_">Instagram</a>
+              <a href="https://www.linkedin.com/in/raghav-mahajan-17611b24b">LinkedIn</a>
+              <a href="https://www.instagram.com/ragh.v_/">Instagram</a>
             </div>
             
             <a href="https://www.raghv.dev" class="portfolio-link">

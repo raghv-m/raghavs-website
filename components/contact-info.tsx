@@ -36,13 +36,13 @@ const socialLinks = [
   },
   {
     name: 'LinkedIn',
-    url: 'www.linkedin.com/in/raghav-mahajan-17611b24b',
+    url: 'https://www.linkedin.com/in/raghav-mahajan-17611b24b',
     icon: Linkedin,
     color: 'hover:bg-blue-600 hover:text-white'
   },
   {
     name: 'Instagram',
-    url: 'https://instagram.com/ragh.v_',
+    url: 'https://www.instagram.com/ragh.v_/',
     icon: Instagram,
     color: 'hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white'
   },

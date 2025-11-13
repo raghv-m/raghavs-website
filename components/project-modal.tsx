@@ -34,7 +34,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="bg-white dark:bg-dark-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+          className="bg-white dark:bg-dark-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto modal-scrollbar-hide"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
@@ -136,7 +136,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             </div>
 
             {/* Links */}
-            <div className="flex gap-4 pt-4 border-t border-gray-200 dark:border-dark-700">
+            <div className="flex gap-4 pt-4 border-t border-gray-200 dark:border-dark-700 flex-wrap">
               {project.github && (
                 <a
                   href={project.github}
@@ -148,7 +148,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   <span>View Code</span>
                 </a>
               )}
-              {project.live && (
+              {project.live && project.live !== '' && (
                 <a
                   href={project.live}
                   target="_blank"

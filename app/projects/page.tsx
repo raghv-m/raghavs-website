@@ -1,6 +1,6 @@
 import { ProjectsGrid } from '@/components/projects-grid'
 import { ProjectFilters } from '@/components/project-filters'
-import { Analytics } from "@vercel/analytics/next"
+
 export default function ProjectsPage() {
   return (
     <div className="min-h-screen pt-16">
