@@ -36,6 +36,22 @@ export function HeroSection() {
       </div>
 
       <div className="relative z-10 container-custom section-padding text-center">
+        {/* Available for Hire Banner */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700"
+        >
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+          </span>
+          <span className="text-sm font-medium text-green-700 dark:text-green-300">
+            Available for Freelance & Full-Time Opportunities
+          </span>
+        </motion.div>
+
         {/* Greeting */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -75,8 +91,8 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed"
         >
-          Passionate about creating innovative digital solutions with expertise in React, Node.js, Flutter, and modern web technologies. 
-          Based in Edmonton, AB, crafting experiences that make a difference.
+          Delivered <span className="font-semibold text-primary-600 dark:text-primary-400">15+ production websites</span> for Edmonton businesses.
+          Specializing in React, Node.js, Next.js, and Flutter to build scalable, high-performance applications.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -87,11 +103,11 @@ export function HeroSection() {
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
         >
           <Link href="/projects" className="btn-primary">
-            View Projects
+            See My Recent Work
           </Link>
           <Link href="/contact" className="btn-outline">
             <Mail className="w-5 h-5 mr-2" />
-            Get In Touch
+            Hire Me
           </Link>
           <a
             href="/cvRM.pdf"

@@ -1,5 +1,20 @@
 import { ContactForm } from '@/components/contact-form'
 import { ContactInfo } from '@/components/contact-info'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Contact - Hire Full Stack Developer Edmonton',
+  description: 'Contact Raghav Mahajan for web development projects in Edmonton, AB. Available for freelance work, full-time opportunities. Specializing in React, Node.js, Next.js, Flutter development.',
+  alternates: {
+    canonical: 'https://raghv.dev/contact',
+  },
+  openGraph: {
+    title: 'Contact Raghav Mahajan - Full Stack Developer',
+    description: 'Get in touch for web development projects in Edmonton. Available for freelance work and full-time opportunities.',
+    url: 'https://raghv.dev/contact',
+    type: 'website',
+  },
+}
 
 export default function ContactPage() {
   return (

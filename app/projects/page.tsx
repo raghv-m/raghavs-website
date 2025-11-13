@@ -1,5 +1,20 @@
 import { ProjectsGrid } from '@/components/projects-grid'
 import { ProjectFilters } from '@/components/project-filters'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Projects - Web Development Portfolio',
+  description: '15+ live web development projects including business websites for EZ Plumbing, Mr. Rooter, Fatima\'s Kitchen. Full-stack applications built with React, Node.js, Next.js, Flutter.',
+  alternates: {
+    canonical: 'https://raghv.dev/projects',
+  },
+  openGraph: {
+    title: 'Projects - Raghav Mahajan Portfolio',
+    description: '15+ live web development projects including business websites for Edmonton companies. Full-stack applications built with React, Node.js, Next.js.',
+    url: 'https://raghv.dev/projects',
+    type: 'website',
+  },
+}
 
 export default function ProjectsPage() {
   return (
