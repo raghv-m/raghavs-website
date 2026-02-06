@@ -1,37 +1,34 @@
 "use client"
 
 import { motion } from 'framer-motion'
+import { Shield, Code, Globe, FileCheck } from 'lucide-react'
 
 const skillCategories = [
   {
-    category: 'Languages',
-    skills: ['JavaScript', 'TypeScript', 'Dart', 'Java', 'Python', 'SQL'],
+    category: 'Security & Pentesting',
+    icon: Shield,
+    skills: ['Kali Linux', 'Metasploit', 'Burp Suite', 'Wireshark', 'Nmap', 'OWASP ZAP', 'SQLMap', 'Nikto'],
   },
   {
-    category: 'Frontend',
-    skills: ['React', 'Next.js', 'AngularJS', 'HTML5', 'CSS3', 'Tailwind CSS'],
+    category: 'Secure Development',
+    icon: Code,
+    skills: ['Python', 'Bash', 'JavaScript', 'Node.js', 'API Security', 'JWT', 'OAuth', 'Cryptography'],
   },
   {
-    category: 'Backend',
-    skills: ['Node.js', 'Express.js', 'REST APIs', 'WebSockets', 'Firebase'],
+    category: 'Network & Cloud Security',
+    icon: Globe,
+    skills: ['TCP/IP', 'Firewalls', 'VPN', 'IDS/IPS', 'AWS Security', 'Docker', 'SSL/TLS'],
   },
   {
-    category: 'Mobile',
-    skills: ['Flutter', 'React Native', 'Mobile UI/UX'],
-  },
-  {
-    category: 'Databases',
-    skills: ['MongoDB', 'MySQL', 'PostgreSQL', 'Firebase Firestore'],
-  },
-  {
-    category: 'Tools & Others',
-    skills: ['Git', 'Docker', 'AWS', 'Vercel', 'Figma', 'Postman'],
+    category: 'Security Practices',
+    icon: FileCheck,
+    skills: ['Vulnerability Assessment', 'Risk Analysis', 'Security Auditing', 'SIEM', 'OWASP Top 10', 'MITRE ATT&CK'],
   },
 ]
 
 export function SkillsSection() {
   return (
-    <section className="section-padding bg-gray-50 dark:bg-dark-800">
+    <section className="section-padding bg-cyber-bg-secondary/50">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -40,37 +37,40 @@ export function SkillsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Skills & <span className="gradient-text">Technologies</span>
+          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-6 text-cyber-text-primary">
+            {'< SKILLS_ARSENAL />'}
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            A comprehensive toolkit of technologies and frameworks I use to bring ideas to life.
+          <p className="text-xl text-cyber-text-secondary max-w-3xl mx-auto">
+            From developer to defender — security tools and methodologies I use to protect digital assets.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.category}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
-              className="card p-6"
+              transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
+              className="glass-card p-6"
             >
-              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
-                {category.category}
-              </h3>
+              <div className="flex items-center gap-3 mb-4">
+                <category.icon className="w-6 h-6 text-cyber-accent-cyan" />
+                <h3 className="font-heading text-lg font-semibold text-cyber-text-primary">
+                  {category.category}
+                </h3>
+              </div>
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill, skillIndex) => (
                   <motion.span
                     key={skill}
-                    initial={{ opacity: 0, scale: 0.8 }}
+                    initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: (categoryIndex * 0.1) + (skillIndex * 0.05) }}
-                    className="px-3 py-1 bg-primary-100 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 text-sm rounded-full hover:bg-primary-200 dark:hover:bg-primary-800/30 transition-colors cursor-default"
-                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3, delay: categoryIndex * 0.05 + skillIndex * 0.03 }}
+                    className="px-3 py-1.5 text-sm rounded-lg bg-cyber-bg-primary/50 border border-white/10 text-cyber-text-secondary hover:border-cyber-accent-cyan/40 hover:text-cyber-accent-cyan transition-all duration-300 cursor-default"
+                    whileHover={{ scale: 1.05, rotate: 1 }}
                   >
                     {skill}
                   </motion.span>
@@ -82,4 +82,4 @@ export function SkillsSection() {
       </div>
     </section>
   )
-} 
+}

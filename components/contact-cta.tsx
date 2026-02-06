@@ -2,49 +2,53 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { Mail, ArrowRight } from 'lucide-react'
+import { Mail, ArrowRight, Shield } from 'lucide-react'
 
 export function ContactCTA() {
   return (
-    <section className="section-padding bg-gradient-to-r from-primary-600 to-secondary-600">
-      <div className="container-custom text-center">
+    <section className="section-padding">
+      <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto"
+          className="glass-card p-10 md:p-14 text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Let's Build Something <span className="text-yellow-300">Amazing</span> Together
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-cyber-text-primary mb-4">
+            READY TO SECURE YOUR DIGITAL ASSETS?
           </h2>
-          <p className="text-xl text-white/90 mb-8 leading-relaxed">
-            I'm always excited to work on new projects and collaborate with innovative teams. 
-            Whether you have a specific project in mind or just want to chat about technology, 
-            I'd love to hear from you.
+          <p className="text-xl text-cyber-text-secondary mb-8 max-w-2xl mx-auto">
+            Let&apos;s build secure, resilient systems. Whether you need a penetration test, security audit, or secure development guidance.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/contact" className="btn-primary bg-white text-primary-600 hover:bg-gray-100 inline-flex items-center">
-              <Mail className="w-5 h-5 mr-2" />
-              Get In Touch
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Link>
-            <a 
-              href="mailto:raaghvv0508@gmail.com" 
-              className="btn-outline border-white text-white hover:bg-white hover:text-primary-600"
-            >
-              raaghvv0508@gmail.com
-            </a>
+            <motion.div whileHover={{ scale: 1.02, y: -2 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                href="/contact"
+                className="btn-primary inline-flex items-center font-heading"
+              >
+                <Mail className="w-5 h-5 mr-2" />
+                Start Conversation
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.02, y: -2 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                href="/projects"
+                className="btn-outline inline-flex items-center font-heading"
+              >
+                <Shield className="w-5 h-5 mr-2" />
+                View Projects
+              </Link>
+            </motion.div>
           </div>
-          
-          <div className="mt-8 text-white/80">
-            <p className="text-sm">
-              Based in Edmonton, AB • Available for remote work worldwide
-            </p>
-          </div>
+
+          <p className="mt-8 text-cyber-text-tertiary text-sm">
+            Based in Edmonton, AB, Canada • Available for remote engagements
+          </p>
         </motion.div>
       </div>
     </section>
   )
-} 
+}
