@@ -56,6 +56,7 @@ export function ContactForm() {
       const payload = {
         name: name.slice(0, 500),
         email,
+        subject: formData.subject?.trim() || 'Portfolio contact from raghv.dev',
         message: message.slice(0, 5000),
         to: formData.to,
       }

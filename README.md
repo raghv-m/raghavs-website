@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 🎨 Raghav's Portfolio
 
 A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS. Features a beautiful photography gallery, project showcase, and contact form with a complete backend API.
@@ -270,10 +269,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-⭐ **Star this repository if you found it helpful!** 
-=======
-# PORTFOLIO
-Private portfolio 
-This is a readme file for a licensed project by Raghav Mahajan.
-Private File 
->>>>>>> ce3a628f26fa8dee3dc3a857f5489563be5c4014
+⭐ **Star this repository if you found it helpful!**

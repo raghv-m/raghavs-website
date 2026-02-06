@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/admin/'],
     },
-    sitemap: 'https://raghv.dev/sitemap.xml',
+    sitemap: 'https://www.raghv.dev/sitemap.xml',
   }
 }
 

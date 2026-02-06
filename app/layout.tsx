@@ -93,16 +93,16 @@ export const metadata: Metadata = {
     google: 'your-google-verification-code',
   },
   other: {
-    'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';",
+    'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:;",
   },
 }
 
-const jsonLd = {
+const jsonLdPerson = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Raghav Mahajan',
   jobTitle: 'Cybersecurity Professional',
-  description: 'Penetration tester and security auditor',
+  description: 'Penetration tester and security auditor. Edmonton, AB. SOC analyst in training.',
   url: 'https://www.raghv.dev',
   sameAs: [
     'https://github.com/raaghvv',
@@ -111,6 +111,21 @@ const jsonLd = {
     'https://linkedin.com/in/raghav-mahajan-17611b24b',
   ],
   knowsAbout: ['Cybersecurity', 'Penetration Testing', 'Web Application Security', 'Secure Development'],
+}
+
+const jsonLdWebSite = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Raghav Mahajan - Cybersecurity Portfolio',
+  url: 'https://www.raghv.dev',
+  description: 'Cybersecurity professional portfolio. Edmonton, AB. TryHackMe writeups, community, certifications.',
+  author: { '@id': 'https://www.raghv.dev/#person' },
+  inLanguage: 'en-CA',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: 'https://www.raghv.dev/projects?search={search_term_string}',
+    'query-input': 'required name=search_term_string',
+  },
 }
 
 export default function RootLayout({
@@ -124,10 +139,17 @@ export default function RootLayout({
         <meta httpEquiv="X-Frame-Options" content="DENY" />
         <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
         <meta name="referrer" content="strict-origin-when-cross-origin" />
+        <meta name="theme-color" content="#0a0a0f" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <link rel="canonical" href="https://www.raghv.dev" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdPerson) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebSite) }}
         />
       </head>
       <body className={`${inter.className} font-sans antialiased`}>

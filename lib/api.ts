@@ -5,6 +5,7 @@ export const api = {
   contact: async (data: {
     name: string;
     email: string;
+    subject?: string;
     message: string;
     to?: string;
   }) => {

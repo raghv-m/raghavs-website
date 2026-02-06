@@ -21,21 +21,25 @@ export function MatrixRain() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    let animationId: number
-    let columns: number
-    let drops: number[]
+    let animationId: ReturnType<typeof setTimeout>
+    let columns = 0
+    let drops: number[] = []
     const fontSize = 14
 
     function resize() {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-      columns = Math.floor(canvas.width / fontSize)
+      const c = canvasRef.current
+      if (!c) return
+      c.width = window.innerWidth
+      c.height = window.innerHeight
+      columns = Math.floor(c.width / fontSize)
       drops = Array(columns).fill(1)
     }
 
     function draw() {
+      const c = canvasRef.current
+      if (!c) return
       ctx.fillStyle = "rgba(10, 10, 15, 0.06)"
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      ctx.fillRect(0, 0, c.width, c.height)
       ctx.fillStyle = GREEN
       ctx.globalAlpha = OPACITY
       ctx.font = `${fontSize}px "JetBrains Mono", monospace`
@@ -45,7 +49,7 @@ export function MatrixRain() {
         const x = i * fontSize
         const y = drops[i] * fontSize
         ctx.fillText(char, x, y)
-        if (y > canvas.height && Math.random() > 0.975) {
+        if (y > c.height && Math.random() > 0.975) {
           drops[i] = 0
         }
         drops[i]++
