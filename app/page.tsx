@@ -4,19 +4,21 @@ import { ServicesSection } from '@/components/services-section'
 import { ProjectsPreview } from '@/components/projects-preview'
 import { TestimonialsSection } from '@/components/testimonials-section'
 import { SkillsSection } from '@/components/skills-section'
+import { HomeLabSection } from '@/components/home-lab-section'
+import { CommunityCTA } from '@/components/community-cta'
 import { ContactCTA } from '@/components/contact-cta'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Home - Full Stack Developer Edmonton',
-  description: 'Raghav Mahajan - Full Stack Developer in Edmonton, AB. Delivered 15+ production websites for local businesses. Specializing in React, Node.js, Next.js, Flutter. Available for freelance projects.',
+  title: 'Home - Cybersecurity Professional Edmonton',
+  description: 'Raghav Mahajan - Cybersecurity professional in Edmonton, AB. Penetration testing, security auditing, secure development. Securing the digital frontier.',
   alternates: {
-    canonical: 'https://raghv.dev',
+    canonical: 'https://www.raghv.dev',
   },
   openGraph: {
-    title: 'Raghav Mahajan - Full Stack Developer | Edmonton, AB',
-    description: 'Full Stack Developer in Edmonton, AB. Delivered 15+ production websites for local businesses including EZ Plumbing, Mr. Rooter, and Fatima\'s Kitchen.',
-    url: 'https://raghv.dev',
+    title: 'Raghav Mahajan - Cybersecurity Professional | Edmonton, AB',
+    description: 'Securing the digital frontier. Penetration testing, security audits, secure development.',
+    url: 'https://www.raghv.dev',
     type: 'website',
   },
 }
@@ -30,6 +32,8 @@ export default function Home() {
       <ProjectsPreview />
       <TestimonialsSection />
       <SkillsSection />
+      <HomeLabSection />
+      <CommunityCTA />
       <ContactCTA />
     </div>
   )

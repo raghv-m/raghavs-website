@@ -7,22 +7,22 @@ import { SoftSkills } from '@/components/soft-skills'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'About - Full Stack Developer & Software Engineer',
-  description: 'Learn about Raghav Mahajan - Full Stack Developer in Edmonton with expertise in React, Node.js, Flutter. Delivered 15+ production websites for local businesses. Available for hire.',
+  title: 'About - Cybersecurity Professional Edmonton',
+  description: 'Raghav Mahajan - Cybersecurity professional in Edmonton. Journey from Full Stack Development to penetration testing, security auditing, and secure development.',
   alternates: {
-    canonical: 'https://raghv.dev/about',
+    canonical: 'https://www.raghv.dev/about',
   },
   openGraph: {
-    title: 'About Raghav Mahajan - Full Stack Developer',
-    description: 'Full Stack Developer in Edmonton with expertise in React, Node.js, Flutter. Delivered 15+ production websites for local businesses.',
-    url: 'https://raghv.dev/about',
+    title: 'About Raghav Mahajan - Cybersecurity Professional',
+    description: 'From Full Stack to Cybersecurity. Penetration testing, security auditing, secure development.',
+    url: 'https://www.raghv.dev/about',
     type: 'profile',
   },
 }
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen pt-16">
+    <div className="min-h-screen pt-20 bg-cyber-bg-primary">
       <AboutHero />
       <AchievementsSection />
       <FunFacts />

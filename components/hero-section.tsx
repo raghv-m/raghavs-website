@@ -1,199 +1,168 @@
 "use client"
 
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowDown, Download, Mail, Github, Linkedin, Instagram } from 'lucide-react'
+import { ArrowDown, Mail, Shield, Github, Linkedin } from 'lucide-react'
+import { TerminalHero } from './terminal-hero'
 
 const socialLinks = [
-  { name: 'GitHub', href: 'https://github.com/raghv-m', icon: Github },
-  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/raghav-mahajan-17611b24b', icon: Linkedin },
-  { name: 'Instagram', href: 'https://www.instagram.com/ragh.v_/', icon: Instagram },
+  { name: 'GitHub', href: 'https://github.com/raghv-m', label: 'GitHub', Icon: Github },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/raghav-mahajan-17611b24b', label: 'LinkedIn', Icon: Linkedin },
 ]
+
+const stats = [
+  { value: 50, suffix: '+', label: 'THM Rooms' },
+  { value: 200, suffix: '+', label: 'Learning Hrs' },
+  { value: 3, suffix: '', label: 'Cert Prep' },
+  { value: 1, suffix: '', label: 'Community' },
+]
+
+function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
+  const [count, setCount] = useState(0)
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+  useEffect(() => {
+    if (!mounted) return
+    const duration = 1500
+    const steps = 30
+    const step = value / steps
+    let current = 0
+    const timer = setInterval(() => {
+      current += step
+      if (current >= value) {
+        setCount(value)
+        clearInterval(timer)
+      } else setCount(Math.floor(current))
+    }, duration / steps)
+    return () => clearInterval(timer)
+  }, [value, mounted])
+  return <>{count}{suffix}</>
+}
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-dark-900 dark:via-dark-800 dark:to-dark-900">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5 dark:opacity-10" />
-      
-      {/* Floating Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute top-20 left-20 w-32 h-32 bg-primary-200 dark:bg-primary-800/30 rounded-full blur-3xl"
-          animate={{ y: [0, -20, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-20 w-40 h-40 bg-secondary-200 dark:bg-secondary-800/30 rounded-full blur-3xl"
-          animate={{ y: [0, 20, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        />
-        <motion.div
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-primary-100 dark:bg-primary-900/20 rounded-full blur-3xl"
-          animate={{ y: [0, -30, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-        />
-      </div>
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-hero pt-20">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(26,15,46,0.4)_0%,transparent_70%)]" />
 
-      <div className="relative z-10 container-custom section-padding text-center">
-        {/* Available for Hire Banner */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700"
-        >
-          <span className="relative flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-          </span>
-          <span className="text-sm font-medium text-green-700 dark:text-green-300">
-            Available for Freelance & Full-Time Opportunities
-          </span>
-        </motion.div>
-
-        {/* Greeting */}
+      <div className="relative z-10 container-custom section-padding text-center flex flex-col items-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-4"
+          className="mb-8"
         >
-          <span className="text-lg text-primary-600 dark:text-primary-400 font-medium">
-            Hello, I'm
-          </span>
+          <TerminalHero />
         </motion.div>
 
-        {/* Name */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="font-heading font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 text-cyber-text-primary tracking-tight"
         >
-          <span className="gradient-text">Raghav Mahajan</span>
+          <span className="gradient-text">SECURING THE DIGITAL FRONTIER</span>
         </motion.h1>
 
-        {/* Title */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-700 dark:text-gray-300 mb-4"
-        >
-          Full Stack Developer
-        </motion.h2>
-
-        {/* Catchy Tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.25 }}
-          className="text-xl md:text-2xl font-medium text-primary-600 dark:text-primary-400 mb-8"
-        >
-          Turning Ideas into Scalable Digital Solutions
-        </motion.p>
-
-        {/* Description */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed"
+          className="text-lg md:text-xl text-cyber-text-secondary mb-2"
         >
-          Delivered <span className="font-semibold text-primary-600 dark:text-primary-400">15+ production websites</span> for Edmonton businesses.
-          Specializing in React, Node.js, Next.js, and Flutter to build scalable, high-performance applications.
+          Cybersecurity Learner | Community Builder | SOC Analyst in Training
         </motion.p>
 
-        {/* CTA Buttons */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.35 }}
+          className="text-cyber-text-tertiary text-sm md:text-base mb-10 max-w-2xl mx-auto"
+        >
+          Learning in public, building in the open, growing together with Edmonton&apos;s cybersecurity community
+        </motion.p>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+          transition={{ duration: 0.6, delay: 0.45 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-14"
         >
-          <motion.div
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          >
-            <Link href="/projects" className="btn-primary inline-flex items-center">
-              See My Recent Work
-              <motion.span
-                className="ml-2"
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                →
-              </motion.span>
+          <motion.div whileHover={{ scale: 1.02, y: -2 }} whileTap={{ scale: 0.98 }}>
+            <Link href="/projects" className="btn-primary inline-flex items-center font-heading">
+              <Shield className="w-5 h-5 mr-2" />
+              View Projects
             </Link>
           </motion.div>
-
-          <motion.div
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          >
-            <Link href="/contact" className="btn-outline inline-flex items-center">
+          <motion.div whileHover={{ scale: 1.02, y: -2 }} whileTap={{ scale: 0.98 }}>
+            <Link href="/contact" className="btn-outline inline-flex items-center font-heading">
               <Mail className="w-5 h-5 mr-2" />
-              Hire Me
+              Contact Me
             </Link>
           </motion.div>
-
-          <motion.div
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          >
-            <a
-              href="/cvRM.pdf"
-              download="Raghav_Mahajan_Resume.pdf"
-              className="btn-secondary inline-flex items-center"
-            >
-              <Download className="w-5 h-5 mr-2" />
-              Download Resume
-            </a>
-          </motion.div>
         </motion.div>
 
-        {/* Social Links */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="flex justify-center space-x-6 mb-16"
-        >
-          {socialLinks.map((social) => (
-            <motion.a
-              key={social.name}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full bg-white/80 dark:bg-dark-800/80 backdrop-blur-sm border border-gray-200 dark:border-dark-700 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-white dark:hover:bg-dark-700 transition-all duration-300"
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <social.icon className="w-6 h-6" />
-            </motion.a>
-          ))}
-        </motion.div>
-
-        {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          className="flex flex-wrap justify-center gap-6 sm:gap-10"
         >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="text-gray-400 dark:text-gray-600"
-          >
-            <ArrowDown className="w-6 h-6" />
-          </motion.div>
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 1 + i * 0.1 }}
+              className="glass-card px-6 py-4 min-w-[100px] text-center"
+            >
+              <div className="font-heading font-bold text-2xl md:text-3xl text-cyber-accent-cyan">
+                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+              </div>
+              <div className="text-cyber-text-tertiary text-xs md:text-sm mt-1">{stat.label}</div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+          className="flex justify-center gap-4 mt-10"
+        >
+          {socialLinks.map((s) => (
+            <motion.a
+              key={s.name}
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={s.label}
+              className="p-3 rounded-xl glass-card text-cyber-text-secondary hover:text-cyber-accent-cyan hover:border-cyber-accent-cyan/30 transition-all duration-300 min-w-[44px] min-h-[44px] flex items-center justify-center"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <s.Icon className="w-5 h-5" />
+            </motion.a>
+          ))}
         </motion.div>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 1.4 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="text-cyber-text-tertiary"
+        >
+          <ArrowDown className="w-6 h-6" aria-hidden />
+        </motion.div>
+      </motion.div>
     </section>
   )
-} 
+}

@@ -1,9 +1,12 @@
+export type ProjectType = 'security' | 'web' | 'mobile'
+
 export interface Project {
   id: number
   title: string
   description: string
   image?: string
   category: 'business' | 'fullstack' | 'chat' | 'ai-chatbot' | 'other'
+  projectType?: ProjectType
   technologies: string[]
   github: string
   live: string
@@ -27,6 +30,7 @@ export const projects: Project[] = [
     title: 'EZ PLUMBING INC',
     description: 'Professional website for Edmonton plumbing business. Built for a real client with focus on lead generation, mobile UX, and local SEO.',
     category: 'business',
+    projectType: 'web',
     technologies: ['Next.js', 'React', 'Tailwind CSS', 'Vercel'],
     github: 'https://github.com/raghv-m/EZ-Plumbing-Inc',
     live: 'https://ez-plumbing-inc.vercel.app',
@@ -67,6 +71,7 @@ export const projects: Project[] = [
     title: 'MR. ROOTER PLUMBING EDMONTON',
     description: 'Edmonton plumbing service website for real client. Features comprehensive service catalog, online booking, and local SEO optimization.',
     category: 'business',
+    projectType: 'web',
     technologies: ['Next.js', 'React', 'Tailwind CSS', 'Vercel'],
     github: 'https://github.com/raghv-m/Mr-Rooter-Plumbing-Edmonton',
     live: 'https://mr-rooter-plumbing-edmonton.vercel.app',
@@ -107,6 +112,7 @@ export const projects: Project[] = [
     title: "FATIMA'S KITCHEN",
     description: 'Restaurant website for real Edmonton restaurant. Features interactive menu, location info, and online ordering integration.',
     category: 'business',
+    projectType: 'web',
     technologies: ['Next.js', 'React', 'Tailwind CSS', 'Vercel'],
     github: 'https://github.com/raghv-m/fatimas-kitchen',
     live: 'https://fatimas-kitchen.vercel.app',
@@ -147,6 +153,7 @@ export const projects: Project[] = [
     title: 'CHRIS COMPANY - Business Website',
     description: 'Professional business website with modern design and comprehensive service information.',
     category: 'business',
+    projectType: 'web',
     technologies: ['Next.js', 'React', 'Tailwind CSS', 'Vercel'],
     github: 'https://github.com/raghv-m/chris-company',
     live: 'https://chris-company.vercel.app',
@@ -183,6 +190,7 @@ export const projects: Project[] = [
     title: 'EASY ONE - Full-Stack RBAC Application',
     description: 'Full-stack application demonstrating Role-Based Access Control (RBAC) with authentication, authorization, and user management.',
     category: 'fullstack',
+    projectType: 'security',
     technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT', 'Vercel'],
     github: 'https://github.com/raghv-m/easy-one',
     live: 'https://easy-one-web.vercel.app',
@@ -223,6 +231,7 @@ export const projects: Project[] = [
     title: 'CHAI LOUNGE - Chat Application',
     description: 'Real-time chat application with messaging capabilities and social interaction features.',
     category: 'chat',
+    projectType: 'web',
     technologies: ['React', 'Socket.io', 'Node.js', 'MongoDB', 'Express'],
     github: 'https://github.com/raghv-m/Chai-Lounge',
     live: 'https://chai-lounge.vercel.app',
@@ -259,6 +268,7 @@ export const projects: Project[] = [
     title: 'IMMIGRATEX - Immigration Platform',
     description: 'Immigration services platform with comprehensive information and application management features.',
     category: 'fullstack',
+    projectType: 'security',
     technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS'],
     github: 'https://github.com/raghv-m/immigratex',
     live: 'https://immigratex.vercel.app',
@@ -295,6 +305,7 @@ export const projects: Project[] = [
     title: 'RAGHAVS - Personal Portfolio',
     description: 'This portfolio website - showcasing my work, skills, and projects with modern design and smooth animations.',
     category: 'other',
+    projectType: 'web',
     technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Vercel Analytics'],
     github: 'https://github.com/raghv-m/raghavs-website',
     live: 'https://www.raghv.dev',

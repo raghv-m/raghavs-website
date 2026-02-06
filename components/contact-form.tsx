@@ -1,73 +1,119 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Send, CheckCircle, AlertCircle } from "lucide-react";
-import { api } from "@/lib/api";
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Lock, CheckCircle, AlertCircle } from "lucide-react"
+import { api } from "@/lib/api"
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    subject: "",
     message: "",
-    to: "raaghvv0508@gmail.com", // Destination email
-  });
+    website: "", // honeypot - leave empty, bots often fill it
+    to: "raaghvv0508@gmail.com",
+  })
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus("idle");
+    e.preventDefault()
+
+    if (formData.website) {
+      setSubmitStatus("success")
+      return
+    }
+
+    const name = formData.name.trim()
+    const email = formData.email.trim()
+    const message = formData.message.trim()
+
+    if (!name || !email || !message) {
+      setSubmitStatus("error")
+      return
+    }
+
+    if (!EMAIL_REGEX.test(email)) {
+      setSubmitStatus("error")
+      return
+    }
+
+    setIsSubmitting(true)
+    setSubmitStatus("idle")
 
     try {
-      const data = await api.contact(formData);
+      const payload = {
+        name: name.slice(0, 500),
+        email,
+        message: message.slice(0, 5000),
+        to: formData.to,
+      }
+      const data = await api.contact(payload)
       if (data.success) {
-        setSubmitStatus("success");
+        setSubmitStatus("success")
         setFormData({
           name: "",
           email: "",
+          subject: "",
           message: "",
+          website: "",
           to: "raaghvv0508@gmail.com",
-        });
+        })
       } else {
-        setSubmitStatus("error");
+        setSubmitStatus("error")
       }
-    } catch (err) {
-      setSubmitStatus("error");
+    } catch {
+      setSubmitStatus("error")
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false)
     }
-  };
+  }
 
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6 }}
-      className="card p-8"
+      className="glass-card p-6 md:p-8 font-mono"
     >
-      <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
-        Send me a message
-      </h2>
+      <div className="flex items-center gap-2 mb-6 pb-3 border-b border-white/10">
+        <span className="w-2 h-2 rounded-full bg-cyber-accent-green" />
+        <h2 className="font-heading text-xl font-bold text-cyber-text-primary">
+          $ send_message --to raghav
+        </h2>
+      </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-5">
         <input type="hidden" name="to" value={formData.to} />
 
-        {/* Name Field */}
+        {/* Honeypot - hidden from users */}
+        <div className="absolute -left-[9999px] top-0 opacity-0 pointer-events-none" aria-hidden="true">
+          <label htmlFor="website">Website</label>
+          <input
+            type="text"
+            id="website"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            value={formData.website}
+            onChange={handleChange}
+          />
+        </div>
+
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Name *
+          <label htmlFor="name" className="block text-sm font-medium text-cyber-text-secondary mb-2">
+            &gt; Name: *
           </label>
           <input
             type="text"
@@ -76,15 +122,14 @@ export function ContactForm() {
             required
             value={formData.name}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-dark-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-dark-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-colors"
+            className="w-full px-4 py-3 rounded-lg border border-white/10 bg-cyber-bg-primary/50 text-cyber-text-primary placeholder-cyber-text-tertiary focus:border-cyber-accent-cyan focus:ring-1 focus:ring-cyber-accent-cyan transition-colors"
             placeholder="Your full name"
           />
         </div>
 
-        {/* Email Field */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Email *
+          <label htmlFor="email" className="block text-sm font-medium text-cyber-text-secondary mb-2">
+            &gt; Email: *
           </label>
           <input
             type="email"
@@ -93,60 +138,58 @@ export function ContactForm() {
             required
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-dark-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-dark-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-colors"
+            className="w-full px-4 py-3 rounded-lg border border-white/10 bg-cyber-bg-primary/50 text-cyber-text-primary placeholder-cyber-text-tertiary focus:border-cyber-accent-cyan focus:ring-1 focus:ring-cyber-accent-cyan transition-colors"
             placeholder="your.email@example.com"
           />
         </div>
 
-        {/* Message Field */}
         <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Message *
+          <label htmlFor="message" className="block text-sm font-medium text-cyber-text-secondary mb-2">
+            &gt; Message: *
           </label>
           <textarea
             id="message"
             name="message"
-            rows={6}
+            rows={5}
             required
             value={formData.message}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-dark-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-dark-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-colors resize-none"
-            placeholder="Tell me about your project or just say hello..."
+            className="w-full px-4 py-3 rounded-lg border border-white/10 bg-cyber-bg-primary/50 text-cyber-text-primary placeholder-cyber-text-tertiary focus:border-cyber-accent-cyan focus:ring-1 focus:ring-cyber-accent-cyan transition-colors resize-none"
+            placeholder="Your message..."
           />
         </div>
 
-        {/* Submit Button */}
         <motion.button
           type="submit"
           disabled={isSubmitting}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="w-full bg-primary-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+          className="w-full py-3 px-6 rounded-lg font-heading font-semibold flex items-center justify-center gap-2 min-h-[48px] bg-cyber-accent-cyan/20 border border-cyber-accent-cyan/40 text-cyber-accent-cyan hover:bg-cyber-accent-cyan/30 hover:border-cyber-accent-cyan disabled:opacity-50 disabled:cursor-not-allowed transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyber-accent-cyan focus-visible:outline-offset-2"
         >
           {isSubmitting ? (
             <>
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              Sending...
+              <Lock className="w-5 h-5" />
+              Encrypting message...
+              <span className="inline-block w-2 h-4 bg-cyber-accent-cyan animate-cursor-blink ml-1" />
             </>
           ) : (
             <>
-              <Send className="w-5 h-5" />
-              Send Message
+              <Lock className="w-5 h-5" />
+              ENCRYPT & SEND
             </>
           )}
         </motion.button>
 
-        {/* Status Messages */}
         <AnimatePresence>
           {submitStatus === "success" && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="flex items-center gap-3 p-4 bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-300 rounded-lg"
+              className="flex items-center gap-3 p-4 rounded-lg bg-cyber-accent-green/10 border border-cyber-accent-green/30 text-cyber-accent-green"
             >
-              <CheckCircle className="w-5 h-5" />
-              <span>Message sent successfully! I'll get back to you soon.</span>
+              <CheckCircle className="w-5 h-5 shrink-0" />
+              <span>Message sent. I&apos;ll get back to you soon.</span>
             </motion.div>
           )}
 
@@ -155,14 +198,14 @@ export function ContactForm() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="flex items-center gap-3 p-4 bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-300 rounded-lg"
+              className="flex items-center gap-3 p-4 rounded-lg bg-cyber-accent-orange/10 border border-cyber-accent-orange/30 text-cyber-accent-orange"
             >
-              <AlertCircle className="w-5 h-5" />
-              <span>Something went wrong. Please try again or email me directly.</span>
+              <AlertCircle className="w-5 h-5 shrink-0" />
+              <span>Something went wrong. Try again or email me directly.</span>
             </motion.div>
           )}
         </AnimatePresence>
       </form>
     </motion.div>
-  );
+  )
 }

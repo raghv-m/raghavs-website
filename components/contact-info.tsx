@@ -1,158 +1,83 @@
 "use client"
 
-import { motion } from 'framer-motion'
-import { Mail, MapPin, Phone, Github, Linkedin, Instagram, Twitter } from 'lucide-react'
+import { useState } from "react"
+import { motion } from "framer-motion"
+import { Mail, MapPin, Github, Linkedin, Lock, Copy, Check } from "lucide-react"
 
-const contactInfo = [
-  {
-    icon: Mail,
-    title: 'Email',
-    value: 'raaghvv0508@gmail.com',
-    link: 'mailto:raaghvv0508@gmail.com',
-    color: 'from-blue-500 to-blue-600'
-  },
-  {
-    icon: MapPin,
-    title: 'Location',
-    value: 'Edmonton, AB, Canada',
-    link: null,
-    color: 'from-green-500 to-green-600'
-  },
-  {
-    icon: Phone,
-    title: 'Phone',
-    value: '+1 (825) 343-1168',
-    link: 'tel:+8253431168',
-    color: 'from-purple-500 to-purple-600'
-  }
-]
-
+const email = "raaghvv0508@gmail.com"
 const socialLinks = [
-  {
-    name: 'GitHub',
-    url: 'https://github.com/raghv-m',
-    icon: Github,
-    color: 'hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-gray-900'
-  },
-  {
-    name: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/raghav-mahajan-17611b24b',
-    icon: Linkedin,
-    color: 'hover:bg-blue-600 hover:text-white'
-  },
-  {
-    name: 'Instagram',
-    url: 'https://www.instagram.com/ragh.v_/',
-    icon: Instagram,
-    color: 'hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white'
-  },
-  {
-    name: 'Twitter',
-    url: 'https://twitter.com/rghvm_',
-    icon: Twitter,
-    color: 'hover:bg-blue-400 hover:text-white'
-  }
+  { name: "GitHub", url: "https://github.com/raghv-m", icon: Github },
+  { name: "LinkedIn", url: "https://www.linkedin.com/in/raghav-mahajan-17611b24b", icon: Linkedin },
 ]
 
 export function ContactInfo() {
+  const [copied, setCopied] = useState(false)
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText(email)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6 }}
-      className="space-y-8"
+      className="space-y-6"
     >
-      {/* Contact Information */}
-      <div className="card p-8">
-        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
-          Contact Information
+      <div className="glass-card p-6 md:p-8">
+        <h2 className="font-heading text-lg font-bold text-cyber-text-primary mb-6 flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-cyber-accent-cyan" />
+          Alternative Contact
         </h2>
-        
-        <div className="space-y-6">
-          {contactInfo.map((info, index) => (
-            <motion.div
-              key={info.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="flex items-center gap-4"
-            >
-              <div className={`w-12 h-12 bg-gradient-to-r ${info.color} rounded-full flex items-center justify-center flex-shrink-0`}>
-                <info.icon className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white">
-                  {info.title}
-                </h3>
-                {info.link ? (
-                  <a
-                    href={info.link}
-                    className="text-primary-600 dark:text-primary-400 hover:underline transition-colors"
-                  >
-                    {info.value}
-                  </a>
-                ) : (
-                  <p className="text-gray-600 dark:text-gray-400">
-                    {info.value}
-                  </p>
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
 
-      {/* Social Links */}
-      <div className="card p-8">
-        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
-          Connect With Me
-        </h2>
-        
-        <div className="grid grid-cols-2 gap-4">
-          {socialLinks.map((social, index) => (
-            <motion.a
-              key={social.name}
-              href={social.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`flex items-center gap-3 p-4 rounded-lg border border-gray-200 dark:border-dark-600 text-gray-700 dark:text-gray-300 transition-all duration-300 ${social.color}`}
+        <div className="space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <div className="flex items-center gap-3">
+              <Mail className="w-5 h-5 text-cyber-accent-cyan shrink-0" />
+              <span className="text-cyber-text-secondary font-mono text-sm">{email}</span>
+            </div>
+            <button
+              type="button"
+              onClick={copyEmail}
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-white/10 text-cyber-text-secondary hover:text-cyber-accent-cyan hover:border-cyber-accent-cyan/30 transition-all min-h-[44px]"
+              aria-label="Copy email"
             >
-              <social.icon className="w-5 h-5" />
-              <span className="font-medium">{social.name}</span>
-            </motion.a>
-          ))}
-        </div>
-      </div>
+              {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+              {copied ? "Copied" : "Copy"}
+            </button>
+          </div>
 
-      {/* Additional Info */}
-      <div className="card p-8 bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20">
-        <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-          Let's Work Together
-        </h2>
-        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-          I'm always interested in new opportunities and exciting projects. Whether you have a specific project in mind or just want to chat about technology, feel free to reach out!
-        </p>
-        
-        <div className="space-y-3">
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            <span className="text-gray-600 dark:text-gray-400">Available for freelance projects</span>
+          <div className="flex items-center gap-3 text-cyber-text-secondary">
+            <MapPin className="w-5 h-5 text-cyber-accent-cyan shrink-0" />
+            <span>Edmonton, AB, Canada</span>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            <span className="text-gray-600 dark:text-gray-400">Open to full-time opportunities</span>
+
+          <div className="flex flex-wrap gap-3 pt-2">
+            {socialLinks.map((s) => (
+              <motion.a
+                key={s.name}
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card px-4 py-3 flex items-center gap-2 text-cyber-text-secondary hover:text-cyber-accent-cyan hover:border-cyber-accent-cyan/30 transition-all min-h-[44px] min-w-[44px]"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                aria-label={s.name}
+              >
+                <s.icon className="w-5 h-5" />
+                <span className="text-sm font-medium">{s.name}</span>
+              </motion.a>
+            ))}
           </div>
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            <span className="text-gray-600 dark:text-gray-400">Willing to relocate for the right opportunity</span>
+
+          <div className="pt-4 border-t border-white/10 flex items-center gap-2 text-cyber-text-tertiary text-sm">
+            <Lock className="w-4 h-4 text-cyber-accent-green shrink-0" />
+            PGP key available for secure communication
           </div>
         </div>
       </div>
     </motion.div>
   )
-} 
+}
