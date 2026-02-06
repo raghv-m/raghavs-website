@@ -20,6 +20,7 @@ export function MatrixRain() {
 
     const ctx = canvas.getContext("2d")
     if (!ctx) return
+    const context = ctx
 
     let animationId: ReturnType<typeof setTimeout>
     let columns = 0
@@ -38,23 +39,23 @@ export function MatrixRain() {
     function draw() {
       const c = canvasRef.current
       if (!c) return
-      ctx.fillStyle = "rgba(10, 10, 15, 0.06)"
-      ctx.fillRect(0, 0, c.width, c.height)
-      ctx.fillStyle = GREEN
-      ctx.globalAlpha = OPACITY
-      ctx.font = `${fontSize}px "JetBrains Mono", monospace`
+      context.fillStyle = "rgba(10, 10, 15, 0.06)"
+      context.fillRect(0, 0, c.width, c.height)
+      context.fillStyle = GREEN
+      context.globalAlpha = OPACITY
+      context.font = `${fontSize}px "JetBrains Mono", monospace`
 
       for (let i = 0; i < drops.length; i++) {
         const char = CHARS[Math.floor(Math.random() * CHARS.length)]
         const x = i * fontSize
         const y = drops[i] * fontSize
-        ctx.fillText(char, x, y)
+        context.fillText(char, x, y)
         if (y > c.height && Math.random() > 0.975) {
           drops[i] = 0
         }
         drops[i]++
       }
-      ctx.globalAlpha = 1
+      context.globalAlpha = 1
     }
 
     function tick() {
