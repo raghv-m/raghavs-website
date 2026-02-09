@@ -22,7 +22,7 @@ export function MatrixRain() {
     if (!ctx) return
     const context = ctx
 
-    let animationId: ReturnType<typeof setTimeout>
+    let animationId: ReturnType<typeof window.setTimeout> | undefined
     let columns = 0
     let drops: number[] = []
     const fontSize = 14
@@ -69,7 +69,9 @@ export function MatrixRain() {
 
     return () => {
       window.removeEventListener("resize", resize)
-      window.clearTimeout(animationId)
+      if (animationId !== undefined) {
+        window.clearTimeout(animationId)
+      }
     }
   }, [])
 
