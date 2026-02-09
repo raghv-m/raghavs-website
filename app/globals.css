@@ -20,7 +20,7 @@
     --glow-green: rgba(0, 255, 136, 0.5);
     --gradient-hero: linear-gradient(135deg, #0a0a0f 0%, #1a0f2e 50%, #0a0a0f 100%);
     --gradient-accent: linear-gradient(90deg, #00d9ff 0%, #b026ff 100%);
-    --font-heading: 'Orbitron', sans-serif;
+    --font-heading: 'Space Grotesk', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
     --font-body: 'Inter', sans-serif;
     --mobile: 320px;

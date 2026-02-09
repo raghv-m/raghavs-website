@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowDown, Mail, Shield, Github, Linkedin } from 'lucide-react'
 import { TerminalHero } from './terminal-hero'
+import { TypewriterEffect } from './typewriter-effect'
 
 const socialLinks = [
   { name: 'GitHub', href: 'https://github.com/raghv-m', label: 'GitHub', Icon: Github },
@@ -13,9 +14,9 @@ const socialLinks = [
 
 const stats = [
   { value: 50, suffix: '+', label: 'THM Rooms' },
-  { value: 200, suffix: '+', label: 'Learning Hrs' },
+  { value: 300, suffix: '+', label: 'Learning Hrs' },
   { value: 3, suffix: '', label: 'Cert Prep' },
-  { value: 1, suffix: '', label: 'Community' },
+  { value: 150, suffix: '+', label: 'Community' },
 ]
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
@@ -70,9 +71,22 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-lg md:text-xl text-cyber-text-secondary mb-2"
+          className="text-lg md:text-xl text-cyber-text-secondary mb-2 min-h-[2rem]"
         >
-          Cybersecurity Learner | Community Builder | SOC Analyst in Training
+          <TypewriterEffect
+            words={[
+              'SOC Analyst in Training',
+              'TryHackMe Enthusiast',
+              'Community Builder',
+              'Security Researcher',
+              'Open Source Contributor',
+            ]}
+            loop={true}
+            typeSpeed={80}
+            deleteSpeed={40}
+            delayBetweenWords={2500}
+            className="text-cyber-accent-cyan font-semibold"
+          />
         </motion.p>
 
         <motion.p

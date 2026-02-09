@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Orbitron, JetBrains_Mono } from 'next/font/google'
+import { Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Navbar } from '@/components/navbar'
@@ -13,10 +13,10 @@ const inter = Inter({
   variable: '--font-body',
   display: 'swap',
 })
-const orbitron = Orbitron({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   variable: '--font-heading',
-  weight: ['500', '700', '900'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
 })
 const jetbrainsMono = JetBrains_Mono({
@@ -34,10 +34,12 @@ export const metadata: Metadata = {
   },
   description: 'Cybersecurity professional specializing in penetration testing, security auditing, and secure application development. Based in Edmonton, AB. Securing the digital frontier.',
   keywords: [
-    'cybersecurity',
+    'cybersecurity edmonton',
     'penetration testing',
     'security auditing',
     'ethical hacking',
+    'SOC analyst',
+    'TryHackMe',
     'edmonton',
     'alberta',
     'canada',
@@ -46,6 +48,9 @@ export const metadata: Metadata = {
     'secure development',
     'threat analysis',
     'incident response',
+    'security consultant',
+    'CompTIA Security+',
+    'cybersecurity professional',
   ],
   authors: [{ name: 'Raghav Mahajan', url: 'https://www.raghv.dev' }],
   creator: 'Raghav Mahajan',
@@ -76,6 +81,7 @@ export const metadata: Metadata = {
     title: 'Raghav Mahajan - Cybersecurity Professional',
     description: 'Securing the digital frontier',
     images: ['/og-image.jpg'],
+    creator: '@raghv_m',
   },
   robots: {
     index: true,
@@ -108,8 +114,15 @@ const jsonLdPerson = {
     'https://github.com/raghv-m',
     'https://linkedin.com/in/raghavmahajan08',
     'https://linkedin.com/in/raghav-mahajan-17611b24b',
+    'https://tryhackme.com/p/raghv-m',
   ],
-  knowsAbout: ['Cybersecurity', 'Penetration Testing', 'Web Application Security', 'Secure Development'],
+  knowsAbout: ['Cybersecurity', 'Penetration Testing', 'Web Application Security', 'Secure Development', 'Threat Analysis', 'Security Auditing'],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Edmonton',
+    addressRegion: 'AB',
+    addressCountry: 'CA',
+  },
 }
 
 const jsonLdWebSite = {
@@ -133,7 +146,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${orbitron.variable} ${jetbrainsMono.variable} ${inter.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${inter.variable}`}>
       <head>
         <meta httpEquiv="X-Frame-Options" content="DENY" />
         <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
@@ -151,7 +164,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebSite) }}
         />
       </head>
-      <body className={`${inter.className} font-sans antialiased`}>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

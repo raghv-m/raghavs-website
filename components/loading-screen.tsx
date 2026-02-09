@@ -17,6 +17,11 @@ export function LoadingScreen() {
   const [progress, setProgress] = useState(0)
   const [message, setMessage] = useState(MESSAGES[0])
 
+  const handleSkip = () => {
+    if (typeof window !== "undefined") sessionStorage.setItem("cyber-loading-seen", "true")
+    setVisible(false)
+  }
+
   useEffect(() => {
     const hasSeen = typeof window !== "undefined" && sessionStorage.getItem("cyber-loading-seen") === "true"
     if (hasSeen) {
@@ -24,7 +29,7 @@ export function LoadingScreen() {
       return
     }
 
-    const duration = 2000
+    const duration = 800 // Reduced from 2000ms to 800ms (2.5x faster)
     const steps = 40
     const stepMs = duration / steps
     const stepValue = 100 / steps
@@ -77,14 +82,25 @@ export function LoadingScreen() {
                 transition={{ duration: 0.15 }}
               />
             </div>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="text-cyber-text-tertiary text-xs mt-2 text-center"
-            >
-              {Math.round(progress)}%
-            </motion.p>
+            <div className="flex items-center justify-between mt-2">
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="text-cyber-text-tertiary text-xs"
+              >
+                {Math.round(progress)}%
+              </motion.p>
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                onClick={handleSkip}
+                className="text-cyber-accent-cyan text-xs hover:underline focus:outline-none focus:ring-2 focus:ring-cyber-accent-cyan focus:ring-offset-2 focus:ring-offset-cyber-bg-primary rounded px-2 py-1"
+              >
+                Skip →
+              </motion.button>
+            </div>
           </div>
         </motion.div>
       )}

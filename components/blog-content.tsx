@@ -24,24 +24,6 @@ const blogPosts: BlogPost[] = [
     tags: ['Journey', 'CareerTransition', 'Introduction'],
     slug: 'why-transitioning-to-cybersecurity',
   },
-  {
-    id: '2',
-    title: 'TryHackMe: Overpass Room Writeup',
-    excerpt: 'My approach to solving the Overpass room, focusing on web enumeration, privilege escalation, and key takeaways for beginners.',
-    date: 'Coming Soon',
-    readTime: '10 min read',
-    tags: ['TryHackMe', 'Linux', 'PrivEsc'],
-    slug: 'tryhackme-overpass-writeup',
-  },
-  {
-    id: '3',
-    title: 'Setting Up My Home Lab: Kali Linux & Ubuntu',
-    excerpt: 'A guide to setting up a cybersecurity home lab with Kali Linux for penetration testing and Ubuntu for development. Tools, configurations, and tips.',
-    date: 'Coming Soon',
-    readTime: '8 min read',
-    tags: ['HomeLab', 'KaliLinux', 'Setup'],
-    slug: 'home-lab-setup',
-  },
 ]
 
 export function BlogContent() {
