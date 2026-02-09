@@ -7,7 +7,6 @@ import { Footer } from '@/components/footer'
 import { BackToTop } from '@/components/back-to-top'
 import { LoadingScreen } from '@/components/loading-screen'
 import { MatrixRain } from '@/components/matrix-rain'
-import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({
   subsets: ['latin'],
@@ -173,7 +172,6 @@ export default function RootLayout({
             <LoadingScreen />
           </div>
         </ThemeProvider>
-        <Analytics />
       </body>
     </html>
   )

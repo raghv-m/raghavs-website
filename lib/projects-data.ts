@@ -306,7 +306,7 @@ export const projects: Project[] = [
     description: 'This portfolio website - showcasing my work, skills, and projects with modern design and smooth animations.',
     category: 'other',
     projectType: 'web',
-    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Vercel Analytics'],
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
     github: 'https://github.com/raghv-m/raghavs-website',
     live: 'https://www.raghv.dev',
     featured: true,
@@ -324,8 +324,7 @@ export const projects: Project[] = [
         'Project showcase with modals',
         'Photography gallery',
         'Contact form integration',
-        'SEO optimized',
-        'Vercel Analytics'
+        'SEO optimized'
       ],
       challenges: [
         'Smooth animations without performance impact',

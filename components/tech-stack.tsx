@@ -1,11 +1,11 @@
 "use client"
 
 import { motion } from 'framer-motion'
-import { 
-  SiJavascript, SiTypescript, SiReact, SiNextdotjs, SiNodedotjs, 
+import {
+  SiJavascript, SiTypescript, SiReact, SiNextdotjs, SiNodedotjs,
   SiExpress, SiMongodb, SiFirebase, SiFlutter, SiPython,
   SiDocker, SiGit, SiTailwindcss, SiHtml5, SiCss3, SiAngular,
-  SiMysql, SiPostgresql, SiVercel, SiFigma, SiPostman
+  SiMysql, SiPostgresql, SiFigma, SiPostman
 } from 'react-icons/si'
 
 const techStack = [
@@ -46,7 +46,6 @@ const techStack = [
       { name: 'Flutter', icon: SiFlutter, level: 90 },
       { name: 'Docker', icon: SiDocker, level: 75 },
       { name: 'Git', icon: SiGit, level: 90 },
-      { name: 'Vercel', icon: SiVercel, level: 85 },
       { name: 'Figma', icon: SiFigma, level: 80 },
       { name: 'Postman', icon: SiPostman, level: 85 },
     ]

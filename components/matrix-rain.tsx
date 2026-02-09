@@ -22,7 +22,7 @@ export function MatrixRain() {
     if (!ctx) return
     const context = ctx
 
-    let animationId: ReturnType<typeof setTimeout>
+    let animationId: number
     let columns = 0
     let drops: number[] = []
     const fontSize = 14

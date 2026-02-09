@@ -111,7 +111,6 @@ portfolio/
 │   └── package.json
 ├── public/               # Static assets
 │   └── assets/          # Images
-├── vercel.json          # Vercel configuration
 └── package.json         # Frontend dependencies
 ```
 
@@ -264,7 +263,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS
 - [Framer Motion](https://www.framer.com/motion/) for smooth animations
 - [Lucide](https://lucide.dev/) for beautiful icons
-- [Vercel](https://vercel.com/) for hosting
 - [Railway](https://railway.app/) for backend hosting
 
 ---
