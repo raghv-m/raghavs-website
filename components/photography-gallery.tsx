@@ -313,10 +313,10 @@ export function PhotographyGallery() {
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setSelectedFilter(category.id)}
-            className={`px-6 py-3 rounded-full font-medium transition-all duration-300 backdrop-blur-sm ${
+            className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
               selectedFilter === category.id
-                ? 'bg-primary-600/90 text-white shadow-lg shadow-primary-600/25'
-                : 'bg-white/10 dark:bg-dark-700/50 text-gray-700 dark:text-gray-300 hover:bg-white/20 dark:hover:bg-dark-600/50 border border-white/20 dark:border-dark-600'
+                ? 'bg-cyber-accent-cyan/20 border border-cyber-accent-cyan/50 text-cyber-accent-cyan shadow-glow-cyan'
+                : 'glass-card text-cyber-text-secondary hover:text-cyber-accent-cyan hover:border-cyber-accent-cyan/30'
             }`}
           >
             <span className="mr-2">{category.icon}</span>
@@ -326,7 +326,7 @@ export function PhotographyGallery() {
       </motion.div>
 
       {/* Debug Info */}
-      <div className="text-center text-sm text-gray-500">
+      <div className="text-center text-sm text-cyber-text-tertiary">
         Showing {filteredPhotos.length} photos
       </div>
 
@@ -342,7 +342,7 @@ export function PhotographyGallery() {
             onClick={() => openLightbox(photo, index)}
           >
             {/* Card */}
-            <div className="relative overflow-hidden rounded-2xl bg-white/8 backdrop-blur-xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 group-hover:scale-[1.02] group-hover:-translate-y-1">
+            <div className="relative overflow-hidden rounded-2xl glass-card hover:border-cyber-accent-cyan/30 shadow-xl hover:shadow-glow-cyan transition-all duration-500 group-hover:scale-[1.02] group-hover:-translate-y-1">
               
               {/* Image Container */}
               <div className="relative overflow-hidden rounded-t-2xl">
@@ -372,11 +372,11 @@ export function PhotographyGallery() {
               </div>
 
               {/* Caption Section */}
-              <div className="p-6">
-                <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300">
+              <div className="p-6 bg-cyber-bg-secondary/50">
+                <h3 className="font-heading text-lg mb-2 text-cyber-text-primary group-hover:text-cyber-accent-cyan transition-colors duration-300">
                   {photo.title}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+                <p className="text-sm text-cyber-text-secondary leading-relaxed mb-3">
                   {photo.description}
                 </p>
                 
@@ -385,7 +385,7 @@ export function PhotographyGallery() {
                   {photo.tags.filter(tag => tag !== "#photography").slice(0, 3).map((tag, tagIndex) => (
                     <span
                       key={tagIndex}
-                      className="px-2 py-1 text-xs bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full hover:bg-primary-200 dark:hover:bg-primary-900/50 transition-colors duration-300 cursor-pointer"
+                      className="px-2 py-1 text-xs bg-cyber-accent-cyan/10 border border-cyber-accent-cyan/30 text-cyber-accent-cyan rounded-full hover:bg-cyber-accent-cyan/20 transition-colors duration-300 cursor-pointer font-mono"
                       onClick={(e) => {
                         e.stopPropagation()
                         const tagName = tag.replace('#', '')
@@ -396,7 +396,7 @@ export function PhotographyGallery() {
                     </span>
                   ))}
                   {photo.tags.filter(tag => tag !== "#photography").length > 3 && (
-                    <span className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full">
+                    <span className="px-2 py-1 text-xs bg-cyber-bg-primary border border-white/10 text-cyber-text-tertiary rounded-full font-mono">
                       +{photo.tags.filter(tag => tag !== "#photography").length - 3}
                     </span>
                   )}
